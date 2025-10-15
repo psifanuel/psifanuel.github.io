@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes Neuropsicológicos - Fanuel C. Glanzmann</title>
+    <style>
+        /* Estilos gerais para a página */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        /* Container principal para centralizar o conteúdo */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Estilos do Cabeçalho */
+        header {
+            text-align: center;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        header p {
+            margin: 5px 0 0;
+            color: #555;
+            font-size: 1.1em;
+        }
+        
+        /* Estilos da seção principal */
+        main h2 {
+            color: #3498db;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        /* Estilos da lista de testes */
+        .test-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .test-list li {
+            margin-bottom: 12px;
+        }
+
+        .test-list a {
+            display: block;
+            padding: 15px;
+            background-color: #3498db;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .test-list a:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Estilos do Rodapé */
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <h1>Testes Neuropsicológicos</h1>
+            <p>Psicólogo Responsável: Fanuel Candido Glanzmann – CRP 05/63951</p>
+        </header>
+
+        <main>
+            <h2>Lista de Testes Disponíveis</h2>
+            <p>Selecione um dos testes abaixo para iniciar.</p>
+
+            <ul class="test-list">
+                <li><a href="seu-arquivo-de-teste-1.html">Nome do Teste 1 (Ex: Teste de Atenção Concentrada)</a></li>
+                
+                <li><a href="seu-arquivo-de-teste-2.html">Nome do Teste 2 (Ex: Escala de Funções Executivas)</a></li>
+                
+                <li><a href="seu-arquivo-de-teste-3.html">Nome do Teste 3 (Ex: Questionário de Ansiedade)</a></li>
+
+                </ul>
+        </main>
+
+        <footer>
+            <div class="clinic-info">
+                <h3>Informações da Clínica</h3>
+                <p><strong>Endereço:</strong> [Insira o endereço da sua clínica aqui]</p>
+                <p><strong>Telefone para contato:</strong> +55 24 98837-8145</p>
+                <p><strong>Site:</strong> <a href="https://psifanuel.com.br" target="_blank">psifanuel.com.br</a></p>
+            </div>
+            <div class="rights">
+                <p>&copy; 2025 Fanuel Candido Glanzmann. Todos os direitos reservados.</p>
+                <p>Este material é de uso exclusivo para fins de avaliação psicológica e não deve ser distribuído ou reproduzido sem autorização prévia.</p>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
