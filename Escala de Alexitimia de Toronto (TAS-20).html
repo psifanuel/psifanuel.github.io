@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)https://www.lncc.br/~borges/php/testar.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala de Alexitimia de Toronto (TAS-20)</title>
+    <script src="./Escala de Alexitimia de Toronto (TAS-20)_files/saved_resource"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .scale-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            text-align: center;
+        }
+        .scale-container label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 0.5rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            font-size: 0.875rem;
+            min-height: 80px;
+        }
+        .scale-container input[type="radio"] {
+            display: none;
+        }
+        .scale-container input[type="radio"]:checked + label {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #2563eb;
+        }
+         .scale-container label:hover {
+            background-color: #eff6ff;
+            border-color: #93c5fd;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.mx-auto{margin-left:auto;margin-right:auto}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-8{margin-bottom:2rem}.mt-10{margin-top:2.5rem}.mt-2{margin-top:0.5rem}.mt-8{margin-top:2rem}.flex{display:flex}.grid{display:grid}.w-full{width:100%}.max-w-4xl{max-width:56rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.justify-center{justify-content:center}.gap-4{gap:1rem}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-8 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(2rem * var(--tw-space-y-reverse))}.whitespace-pre-wrap{white-space:pre-wrap}.break-all{word-break:break-all}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-l-4{border-left-width:4px}.border-t{border-top-width:1px}.border-blue-500{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.bg-gray-700{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-green-500{--tw-bg-opacity:1;background-color:rgb(34 197 94 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.pb-6{padding-bottom:1.5rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.text-2xl{font-size:1.5rem;line-height:2rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-green-300{--tw-text-opacity:1;color:rgb(134 239 172 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow{--tw-shadow:0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-md{--tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-800:hover{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\:bg-green-600:hover{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.hover\:text-blue-500:hover{--tw-text-opacity:1;color:rgb(59 130 246 / var(--tw-text-opacity, 1))}.focus\:border-transparent:focus{border-color:transparent}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-blue-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(59 130 246 / var(--tw-ring-opacity, 1))}.focus\:ring-gray-700:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(55 65 81 / var(--tw-ring-opacity, 1))}.focus\:ring-green-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(34 197 94 / var(--tw-ring-opacity, 1))}.focus\:ring-offset-2:focus{--tw-ring-offset-width:2px}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:p-6{padding:1.5rem}.sm\:p-8{padding:2rem}.sm\:text-2xl{font-size:1.5rem;line-height:2rem}.sm\:text-3xl{font-size:1.875rem;line-height:2.25rem}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}@media (min-width: 1024px){.lg\:p-8{padding:2rem}}</style></head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-4xl">
+        
+        <!-- Cabeçalho -->
+        <header class="bg-white shadow-md rounded-lg p-6 mb-8 text-center border-l-4 border-blue-500">
+            <h1 class="text-2xl sm:text-3xl font-bold text-blue-600">Psicologo Fanuel Glanzmann</h1>
+            <p class="text-gray-600 mt-2">CRP 05/63951</p>
+            <div class="flex justify-center space-x-4 mt-2 text-sm text-gray-500">
+                <a href="http://www.psifanuel.com.br/" target="_blank" class="hover:text-blue-500">www.psifanuel.com.br</a>
+                <span>/</span>
+                <a href="http://terapiapopular.com.br/" target="_blank" class="hover:text-blue-500">terapiapopular.com.br</a>
+            </div>
+        </header>
+
+        <main class="bg-white shadow-md rounded-lg p-6 sm:p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-xl sm:text-2xl font-semibold">Escala de Alexitimia de Toronto (TAS-20)</h2>
+                <p class="text-gray-600 mt-2">Indique o seu grau de concordância com cada uma das seguintes afirmações. Dê só uma resposta por cada afirmação.</p>
+            </div>
+
+            <!-- Dados do Paciente -->
+            <div class="mb-8 border-b pb-6">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Dados Pessoais</h3>
+                <div id="dados-pessoais" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <input type="text" id="nome" placeholder="Nome" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="number" id="idade" placeholder="Idade" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" id="sexo" placeholder="Sexo" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" id="escolaridade" placeholder="Escolaridade" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="text" id="profissao" placeholder="Profissão" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <input type="date" id="data" class="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-500">
+                </div>
+            </div>
+
+            <!-- Questionário -->
+            <form id="tas20-form">
+                <div id="questions-container" class="space-y-8">
+                    <!-- As perguntas serão injetadas aqui pelo JavaScript -->
+                </div>
+            </form>
+
+            <!-- Ações e Resultado -->
+            <div class="mt-10 pt-6 border-t">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button id="save-json-btn" class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Gerar JSON
+                    </button>
+                    <button id="whatsapp-btn" class="bg-green-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-green-600 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Enviar por WhatsApp
+                    </button>
+                    <button id="email-btn" class="bg-gray-700 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-800 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700">
+                        Enviar por Email
+                    </button>
+                </div>
+                 <div id="json-output-container" class="mt-8" style="display: none;">
+                    <h3 class="text-lg font-semibold mb-2">Resultado em JSON:</h3>
+                    <pre id="json-output" class="bg-gray-800 text-green-300 p-4 rounded-md text-sm whitespace-pre-wrap break-all"></pre>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questions = [
+                "1. Fico muitas vezes confuso sobre qual emoção a que estou a sentir.",
+                "2. Tenho dificuldade em encontrar as palavras certas para descrever os meus sentimentos.",
+                "3. Tenho sensações físicas que nem os médicos compreendem.",
+                "4. Sou capaz de descrever facilmente os meus sentimentos.",
+                "5. Prefiro analisar os problemas a apenas descrevê-los.",
+                "6. Quando estou aborrecido, não sei se me sinto triste, assustado ou zangado.",
+                "7. Fico muitas vezes intrigado com sensações do meu corpo.",
+                "8. Prefiro simplesmente deixar as coisas acontecer a compreender por que acontecem assim.",
+                "9. Tenho sentimentos que não consigo identificar bem.",
+                "10. É essencial estar em contacto com as emoções.",
+                "11. Acho difícil descrever o que sinto em relação às pessoas.",
+                "12. As pessoas dizem-me para falar mais dos meus sentimentos.",
+                "13. Não sei o que se passa dentro de mim.",
+                "14. Muitas vezes não sei porque estou zangado.",
+                "15. Prefiro conversar com as pessoas sobre as suas actividades diárias do que sobre os seus sentimentos.",
+                "16. Prefiro assistir a espectáculos ligeiros que a dramas psicológicos.",
+                "17. É-me difícil revelar os sentimentos mais íntimos mesmo a amigos próximos.",
+                "18. Posso sentir-me próximo de uma pessoa mesmo em momentos de silêncio.",
+                "19. Considero o exame dos meus sentimentos útil na resolução de problemas pessoais.",
+                "20. Procurar significados ocultos nos filmes e peças de teatro distrai do prazer que proporcionam."
+            ];
+
+            const options = [
+                { value: 1, label: 'Discordo totalmente' },
+                { value: 2, label: 'Discordo em parte' },
+                { value: 3, label: 'Nem discordo nem concordo' },
+                { value: 4, label: 'Concordo em parte' },
+                { value: 5, label: 'Concordo totalmente' }
+            ];
+
+            const questionsContainer = document.getElementById('questions-container');
+
+            questions.forEach((question, index) => {
+                const questionIndex = index + 1;
+                const questionBlock = document.createElement('div');
+                questionBlock.className = 'p-4 border rounded-lg shadow-sm';
+
+                const questionText = document.createElement('p');
+                questionText.className = 'mb-4 font-medium text-gray-700';
+                questionText.textContent = question;
+                questionBlock.appendChild(questionText);
+
+                const scaleContainer = document.createElement('div');
+                scaleContainer.className = 'scale-container';
+
+                options.forEach(option => {
+                    const inputId = `q${questionIndex}_${option.value}`;
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.id = inputId;
+                    input.name = `question_${questionIndex}`;
+                    input.value = option.value;
+                    input.required = true;
+                    
+                    const label = document.createElement('label');
+                    label.htmlFor = inputId;
+                    label.innerHTML = `<span>${option.value}</span><span class="mt-1">${option.label}</span>`;
+
+                    const wrapper = document.createElement('div');
+                    wrapper.appendChild(input);
+                    wrapper.appendChild(label);
+                    scaleContainer.appendChild(wrapper);
+                });
+
+                questionBlock.appendChild(scaleContainer);
+                questionsContainer.appendChild(questionBlock);
+            });
+            
+            // Preencher data atual
+            document.getElementById('data').valueAsDate = new Date();
+
+            // Lógica para coletar os dados
+            const collectData = () => {
+                const formData = new FormData(document.getElementById('tas20-form'));
+                const personalData = {
+                    nome: document.getElementById('nome').value,
+                    idade: document.getElementById('idade').value,
+                    sexo: document.getElementById('sexo').value,
+                    escolaridade: document.getElementById('escolaridade').value,
+                    profissao: document.getElementById('profissao').value,
+                    data: document.getElementById('data').value
+                };
+
+                const answers = {};
+                let allAnswered = true;
+                for (let i = 1; i <= questions.length; i++) {
+                    const answer = formData.get(`question_${i}`);
+                    if (answer) {
+                        answers[`pergunta_${i}`] = parseInt(answer);
+                    } else {
+                        allAnswered = false;
+                    }
+                }
+                
+                if (!allAnswered || !personalData.nome) {
+                    alert('Por favor, preencha o nome e responda a todas as perguntas antes de continuar.');
+                    return null;
+                }
+
+                return {
+                    teste: 'Escala de Alexitimia de Toronto (TAS-20)',
+                    dadosPessoais: personalData,
+                    respostas: answers
+                };
+            };
+            
+            // Botão Salvar JSON
+            const saveJsonBtn = document.getElementById('save-json-btn');
+            const jsonOutputContainer = document.getElementById('json-output-container');
+            const jsonOutput = document.getElementById('json-output');
+
+            saveJsonBtn.addEventListener('click', () => {
+                const data = collectData();
+                if (data) {
+                    const jsonString = JSON.stringify(data, null, 2);
+                    jsonOutput.textContent = jsonString;
+                    jsonOutputContainer.style.display = 'block';
+                }
+            });
+
+            // Botão Enviar por WhatsApp
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            whatsappBtn.addEventListener('click', () => {
+                const data = collectData();
+                if (data) {
+                    const jsonString = JSON.stringify(data, null, 2);
+                    const phone = '+5524988378145';
+                    const message = `Resultados do Teste TAS-20 para ${data.dadosPessoais.nome}:\n\n${jsonString}`;
+                    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+                    window.open(whatsappUrl, '_blank');
+                }
+            });
+
+            // Botão Enviar por Email
+            const emailBtn = document.getElementById('email-btn');
+            emailBtn.addEventListener('click', () => {
+                const data = collectData();
+                if (data) {
+                    const jsonString = JSON.stringify(data, null, 2);
+                    const email = 'psifanuel@gmail.com';
+                    const subject = `Resultados do Teste TAS-20 - ${data.dadosPessoais.nome}`;
+                    const body = `Olá, seguem os resultados do teste TAS-20 preenchido por ${data.dadosPessoais.nome}.\n\n${jsonString}`;
+                    const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                    window.location.href = mailtoUrl;
+                }
+            });
+
+        });
+    </script>
+
+
+</body></html>
