@@ -1,27 +1,33 @@
+<!--
+IMPORTANTE: Ao salvar este cÃ³digo em um arquivo .html, certifique-se de que
+a codificaÃ§Ã£o do arquivo seja "UTF-8". No Bloco de Notas (Windows), por exemplo,
+na janela "Salvar como", existe uma opÃ§Ã£o "CodificaÃ§Ã£o" na parte inferior.
+Selecione "UTF-8" para garantir que os acentos apareÃ§am corretamente.
+-->
 <!DOCTYPE html>
-<!-- saved from url=(0043)https://www.lncc.br/~borges/php/testar.html -->
-<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-    
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventário de Comportamentos Autísticos (ICA)</title>
-    <script src="./Inventário de Comportamentos Autísticos (ICA)_files/saved_resource"></script>
+    <title>InventÃ¡rio de Comportamentos AutÃ­sticos (ICA)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
         }
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     </style>
-<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.mx-auto{margin-left:auto;margin-right:auto}.my-10{margin-top:2.5rem;margin-bottom:2.5rem}.mb-4{margin-bottom:1rem}.mb-8{margin-bottom:2rem}.mt-1{margin-top:0.25rem}.mt-10{margin-top:2.5rem}.mt-2{margin-top:0.5rem}.mt-3{margin-top:0.75rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.w-16{width:4rem}.w-20{width:5rem}.w-full{width:100%}.max-w-2xl{max-width:42rem}.max-w-4xl{max-width:56rem}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.rounded-2xl{border-radius:1rem}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-l-4{border-left-width:4px}.border-t{border-top-width:1px}.border-blue-300{--tw-border-opacity:1;border-color:rgb(147 197 253 / var(--tw-border-opacity, 1))}.border-blue-500{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.border-gray-200{--tw-border-opacity:1;border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))}.border-gray-300{--tw-border-opacity:1;border-color:rgb(209 213 219 / var(--tw-border-opacity, 1))}.border-transparent{border-color:transparent}.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254 / var(--tw-bg-opacity, 1))}.bg-blue-50{--tw-bg-opacity:1;background-color:rgb(239 246 255 / var(--tw-bg-opacity, 1))}.bg-blue-600{--tw-bg-opacity:1;background-color:rgb(37 99 235 / var(--tw-bg-opacity, 1))}.bg-gray-100{--tw-bg-opacity:1;background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))}.bg-gray-50{--tw-bg-opacity:1;background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))}.bg-gray-600{--tw-bg-opacity:1;background-color:rgb(75 85 99 / var(--tw-bg-opacity, 1))}.bg-green-600{--tw-bg-opacity:1;background-color:rgb(22 163 74 / var(--tw-bg-opacity, 1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pt-6{padding-top:1.5rem}.text-center{text-align:center}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-base{font-size:1rem;line-height:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-blue-600{--tw-text-opacity:1;color:rgb(37 99 235 / var(--tw-text-opacity, 1))}.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216 / var(--tw-text-opacity, 1))}.text-gray-500{--tw-text-opacity:1;color:rgb(107 114 128 / var(--tw-text-opacity, 1))}.text-gray-600{--tw-text-opacity:1;color:rgb(75 85 99 / var(--tw-text-opacity, 1))}.text-gray-700{--tw-text-opacity:1;color:rgb(55 65 81 / var(--tw-text-opacity, 1))}.text-gray-800{--tw-text-opacity:1;color:rgb(31 41 55 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.hover\:bg-blue-700:hover{--tw-bg-opacity:1;background-color:rgb(29 78 216 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-700:hover{--tw-bg-opacity:1;background-color:rgb(55 65 81 / var(--tw-bg-opacity, 1))}.hover\:bg-green-700:hover{--tw-bg-opacity:1;background-color:rgb(21 128 61 / var(--tw-bg-opacity, 1))}.hover\:underline:hover{-webkit-text-decoration-line:underline;text-decoration-line:underline}.focus\:border-blue-500:focus{--tw-border-opacity:1;border-color:rgb(59 130 246 / var(--tw-border-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)}.focus\:ring-blue-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(59 130 246 / var(--tw-ring-opacity, 1))}.focus\:ring-gray-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(107 114 128 / var(--tw-ring-opacity, 1))}.focus\:ring-green-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(34 197 94 / var(--tw-ring-opacity, 1))}.focus\:ring-offset-2:focus{--tw-ring-offset-width:2px}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}}@media (min-width: 768px){.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}}</style></head>
+</head>
 <body class="bg-gray-100 text-gray-800">
 
     <div class="container mx-auto max-w-4xl my-10 p-8 bg-white rounded-2xl shadow-lg">
-        <!-- Cabeçalho -->
+        <!-- CabeÃ§alho -->
         <header class="text-center p-6 bg-gray-50 rounded-xl mb-8 border border-gray-200">
-            <h2 class="text-xl font-bold text-gray-700">Psicólogo Responsável: Fanuel Candido Glanzmann – CRP 05/63951</h2>
+            <h2 class="text-xl font-bold text-gray-700">PsicÃ³logo ResponsÃ¡vel: Fanuel Candido Glanzmann â€“ CRP 05/63951</h2>
             <p class="text-gray-600 mt-2"><strong>Abordagem:</strong> Terapia Cognitivo-Comportamental (TCC)</p>
-            <p class="text-gray-600"><strong>Serviço:</strong> Avaliação Psicológica / Teste Psicométrico</p>
+            <p class="text-gray-600"><strong>ServiÃ§o:</strong> AvaliaÃ§Ã£o PsicolÃ³gica / Teste PsicomÃ©trico</p>
             <div class="mt-3 text-sm text-blue-600 space-x-4">
-                <a href="http://psifanuel.com.br/" target="_blank" class="hover:underline">psifanuel.com.br</a>
+                <a href="http://psifanuel.com.br" target="_blank" class="hover:underline">psifanuel.com.br</a>
                 <span>|</span>
                 <a href="mailto:psifanuel@gmail.com" class="hover:underline">psifanuel@gmail.com</a>
                 <span>|</span>
@@ -30,25 +36,25 @@
         </header>
 
         <main>
-            <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">Inventário de Comportamentos Autísticos (ICA)</h1>
-            <p class="text-center text-gray-500 mb-8">Versão para Mãe de Adulto</p>
+            <h1 class="text-3xl font-bold text-center text-gray-800 mb-4">InventÃ¡rio de Comportamentos AutÃ­sticos (ICA)</h1>
+            <p class="text-center text-gray-500 mb-8">VersÃ£o para MÃ£e de Adulto</p>
 
             <div class="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-8 rounded-md">
-                <p class="font-bold">Instruções:</p>
-                <p>Leia atentamente cada item e assinale se o comportamento descrito ainda é observado ou foi observado com frequência durante a infância/adolescência de seu filho.</p>
+                <p class="font-bold">InstruÃ§Ãµes:</p>
+                <p>Leia atentamente cada item e assinale se o comportamento descrito ainda Ã© observado ou foi observado com frequÃªncia durante a infÃ¢ncia/adolescÃªncia de seu filho.</p>
             </div>
 
             <form id="ica-form">
-                <!-- Seção de Identificação -->
+                <!-- SeÃ§Ã£o de IdentificaÃ§Ã£o -->
                 <div class="mb-8 p-6 border border-gray-200 rounded-lg">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Identificação</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">IdentificaÃ§Ã£o</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="nome_filho" class="block text-sm font-medium text-gray-700">Nome do filho:</label>
                             <input type="text" id="nome_filho" name="nome_filho" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div>
-                            <label for="data_aplicacao" class="block text-sm font-medium text-gray-700">Data da aplicação:</label>
+                            <label for="data_aplicacao" class="block text-sm font-medium text-gray-700">Data da aplicaÃ§Ã£o:</label>
                             <input type="date" id="data_aplicacao" name="data_aplicacao" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
                         </div>
                         <div>
@@ -62,47 +68,47 @@
                     </div>
                 </div>
 
-                <!-- Seção do Questionário -->
+                <!-- SeÃ§Ã£o do QuestionÃ¡rio -->
                 <div class="mb-8">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Questionário</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">QuestionÃ¡rio</h3>
                     <ol class="space-y-3" id="questions-list">
-                        <!-- As perguntas serão inseridas aqui pelo JavaScript -->
+                        <!-- As perguntas serÃ£o inseridas aqui pelo JavaScript -->
                     </ol>
                 </div>
                 
-                <!-- Seção de Pontuação -->
+                <!-- SeÃ§Ã£o de PontuaÃ§Ã£o -->
                 <div class="p-6 border border-gray-200 rounded-lg bg-gray-50">
-                    <h3 class="text-xl font-semibold mb-4 text-center text-gray-700">Pontuação por Domínio</h3>
+                    <h3 class="text-xl font-semibold mb-4 text-center text-gray-700">PontuaÃ§Ã£o por DomÃ­nio</h3>
                     <div class="flex justify-center items-center flex-wrap gap-4 text-center">
                         <div>
                             <label for="score_es" class="block text-sm font-medium text-gray-700">ES</label>
-                            <input type="text" id="score_es" name="score_es" readonly="" class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
+                            <input type="text" id="score_es" name="score_es" readonly class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
                         </div>
                         <div>
                             <label for="score_re" class="block text-sm font-medium text-gray-700">RE</label>
-                            <input type="text" id="score_re" name="score_re" readonly="" class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
+                            <input type="text" id="score_re" name="score_re" readonly class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
                         </div>
                         <div>
                             <label for="score_co" class="block text-sm font-medium text-gray-700">CO</label>
-                            <input type="text" id="score_co" name="score_co" readonly="" class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
+                            <input type="text" id="score_co" name="score_co" readonly class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
                         </div>
                         <div>
                             <label for="score_lg" class="block text-sm font-medium text-gray-700">LG</label>
-                            <input type="text" id="score_lg" name="score_lg" readonly="" class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
+                            <input type="text" id="score_lg" name="score_lg" readonly class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
                         </div>
                         <div>
                             <label for="score_ps" class="block text-sm font-medium text-gray-700">PS</label>
-                            <input type="text" id="score_ps" name="score_ps" readonly="" class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
+                            <input type="text" id="score_ps" name="score_ps" readonly class="mt-1 w-16 text-center bg-white border border-gray-300 rounded-md shadow-sm font-bold text-lg">
                         </div>
                         <div class="text-blue-600">
                             <label for="score_total" class="block text-sm font-bold">Total</label>
-                            <input type="text" id="score_total" name="score_total" readonly="" class="mt-1 w-20 text-center bg-blue-100 border border-blue-300 rounded-md shadow-sm font-bold text-xl">
+                            <input type="text" id="score_total" name="score_total" readonly class="mt-1 w-20 text-center bg-blue-100 border border-blue-300 rounded-md shadow-sm font-bold text-xl">
                         </div>
                     </div>
                 </div>
             </form>
 
-             <!-- Botões de Ação -->
+             <!-- BotÃµes de AÃ§Ã£o -->
             <div id="action-buttons" class="mt-10 pt-6 border-t border-gray-200 flex flex-col sm:flex-row justify-center gap-4">
                 <button id="save-json" type="button" class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     Salvar em JSON
@@ -116,14 +122,14 @@
             </div>
         </main>
 
-        <!-- Rodapé -->
+        <!-- RodapÃ© -->
         <footer class="text-center mt-10 pt-6 border-t border-gray-200">
-            <p class="font-bold text-gray-600">&#128248; Direitos de Imagem e Confidencialidade</p>
+            <p class="font-bold text-gray-600">ðŸ“¸ Direitos de Imagem e Confidencialidade</p>
             <p class="text-xs text-gray-500 mt-2 max-w-2xl mx-auto">
-                As imagens, registros e dados coletados durante esta avaliação são de uso exclusivo do psicólogo responsável e destinam-se exclusivamente aos fins clínicos e científicos pertinentes à avaliação psicológica.
+                As imagens, registros e dados coletados durante esta avaliaÃ§Ã£o sÃ£o de uso exclusivo do psicÃ³logo responsÃ¡vel e destinam-se exclusivamente aos fins clÃ­nicos e cientÃ­ficos pertinentes Ã  avaliaÃ§Ã£o psicolÃ³gica.
             </p>
             <p class="text-xs text-gray-500 mt-1 max-w-2xl mx-auto">
-                É vedada a reprodução, divulgação ou compartilhamento parcial ou integral deste material sem autorização expressa do profissional e do avaliado, conforme o Código de Ética Profissional do Psicólogo (Resolução CFP nº 010/2005).
+                Ã‰ vedada a reproduÃ§Ã£o, divulgaÃ§Ã£o ou compartilhamento parcial ou integral deste material sem autorizaÃ§Ã£o expressa do profissional e do avaliado, conforme o CÃ³digo de Ã‰tica Profissional do PsicÃ³logo (ResoluÃ§Ã£o CFP nÂº 010/2005).
             </p>
         </footer>
     </div>
@@ -131,63 +137,63 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const questions = [
-                { text: "Gira ou girava em torno de si por longos períodos de tempo.", domain: "ES" },
+                { text: "Gira ou girava em torno de si por longos perÃ­odos de tempo.", domain: "ES" },
                 { text: "Aprende tarefas, mas esquece com facilidade.", domain: "CO" },
-                { text: "Costuma ignorar expressões faciais, gestos ou situações sociais.", domain: "RE" },
-                { text: "Não responde (ou não respondia) a solicitações verbais simples, como 'venha cá' ou 'sente-se'.", domain: "LG" },
+                { text: "Costuma ignorar expressÃµes faciais, gestos ou situaÃ§Ãµes sociais.", domain: "RE" },
+                { text: "NÃ£o responde (ou nÃ£o respondia) a solicitaÃ§Ãµes verbais simples, como 'venha cÃ¡' ou 'sente-se'.", domain: "LG" },
                 { text: "Usa ou usava objetos de maneira repetitiva ou incomum (ex: girar, empilhar).", domain: "CO" },
                 { text: "Fixa ou fixava o olhar em detalhes de objetos, sem perceber o todo.", domain: "ES" },
-                { text: "Raramente sorri ou sorria em resposta a interações sociais.", domain: "RE" },
+                { text: "Raramente sorri ou sorria em resposta a interaÃ§Ãµes sociais.", domain: "RE" },
                 { text: "Usa ou usava pronomes de forma trocada (ex: dizer 'ele' em vez de 'eu').", domain: "LG" },
                 { text: "Insiste ou insistia em manter certos objetos consigo.", domain: "CO" },
-                { text: "Costuma parecer que não está ou estava escutando, mesmo quando chamado.", domain: "ES" },
-                { text: "Fala ou falava de forma monótona, sem variações de ritmo ou entonação.", domain: "LG" },
-                { text: "Fica ou ficava balançando o corpo por longos períodos.", domain: "ES" },
-                { text: "Não estende ou não estendia os braços para ser pego (nem quando era bebê).", domain: "RE" },
-                { text: "Reage ou reagia fortemente a mudanças no ambiente.", domain: "RE" },
-                { text: "Ignora ou ignorava seu nome mesmo quando outras crianças reagiam.", domain: "RE" },
-                { text: "Corre ou corria girando sobre si, balançando as mãos ou fazendo movimentos repetitivos.", domain: "ES" },
-                { text: "Não reconhece ou não reconhecia expressões faciais ou sentimentos de outras pessoas.", domain: "RE" },
+                { text: "Costuma parecer que nÃ£o estÃ¡ ou estava escutando, mesmo quando chamado.", domain: "ES" },
+                { text: "Fala ou falava de forma monÃ³tona, sem variaÃ§Ãµes de ritmo ou entonaÃ§Ã£o.", domain: "LG" },
+                { text: "Fica ou ficava balanÃ§ando o corpo por longos perÃ­odos.", domain: "ES" },
+                { text: "NÃ£o estende ou nÃ£o estendia os braÃ§os para ser pego (nem quando era bebÃª).", domain: "RE" },
+                { text: "Reage ou reagia fortemente a mudanÃ§as no ambiente.", domain: "RE" },
+                { text: "Ignora ou ignorava seu nome mesmo quando outras crianÃ§as reagiam.", domain: "RE" },
+                { text: "Corre ou corria girando sobre si, balanÃ§ando as mÃ£os ou fazendo movimentos repetitivos.", domain: "ES" },
+                { text: "NÃ£o reconhece ou nÃ£o reconhecia expressÃµes faciais ou sentimentos de outras pessoas.", domain: "RE" },
                 { text: "Raramente usa ou usava palavras como 'sim' ou 'eu'.", domain: "LG" },
-                { text: "Demonstra habilidade notável em alguma área específica.", domain: "PS" },
-                { text: "Não compreende ou compreendia comandos verbais com referências espaciais (ex: 'coloque ao lado').", domain: "LG" },
+                { text: "Demonstra habilidade notÃ¡vel em alguma Ã¡rea especÃ­fica.", domain: "PS" },
+                { text: "NÃ£o compreende ou compreendia comandos verbais com referÃªncias espaciais (ex: 'coloque ao lado').", domain: "LG" },
                 { text: "Assusta-se ou assustava-se com sons altos, parecendo surdez.", domain: "ES" },
-                { text: "Balança ou balançava frequentemente as mãos.", domain: "ES" },
-                { text: "Tem ou tinha explosões de raiva frequentes ou 'chiliques'.", domain: "RE" },
+                { text: "BalanÃ§a ou balanÃ§ava frequentemente as mÃ£os.", domain: "ES" },
+                { text: "Tem ou tinha explosÃµes de raiva frequentes ou 'chiliques'.", domain: "RE" },
                 { text: "Evita ou evitava ativamente o contato visual.", domain: "RE" },
                 { text: "Resiste ou resistia ao toque, ao colo ou ao carinho.", domain: "RE" },
-                { text: "Não reage ou não reagia a estímulos dolorosos como cortes ou quedas.", domain: "ES" },
-                { text: "Fica ou ficava rígido quando está/estava no colo (ou era assim quando bebê).", domain: "RE" },
-                { text: "Fica ou ficava flácido quando está/estava no colo.", domain: "RE" },
+                { text: "NÃ£o reage ou nÃ£o reagia a estÃ­mulos dolorosos como cortes ou quedas.", domain: "ES" },
+                { text: "Fica ou ficava rÃ­gido quando estÃ¡/estava no colo (ou era assim quando bebÃª).", domain: "RE" },
+                { text: "Fica ou ficava flÃ¡cido quando estÃ¡/estava no colo.", domain: "RE" },
                 { text: "Aponta ou apontava para indicar o que deseja.", domain: "LG" },
-                { text: "Anda ou andava frequentemente nas pontas dos pés.", domain: "CO" },
+                { text: "Anda ou andava frequentemente nas pontas dos pÃ©s.", domain: "CO" },
                 { text: "Aglide ou agredia outras pessoas mordendo, batendo etc.", domain: "RE" },
-                { text: "Repete ou repetia a mesma frase várias vezes.", domain: "LG" },
-                { text: "Não imita ou não imitava brincadeiras de outras crianças.", domain: "RE" },
-                { text: "Não pisca ou não piscava quando luz forte incide em seus olhos.", domain: "ES" },
-                { text: "Machuca ou machucava a si mesmo (mordendo, batendo a cabeça etc.).", domain: "ES" },
-                { text: "Não sabe ou não sabia esperar para ser atendido; quer tudo imediatamente.", domain: "PS" },
-                { text: "Não aponta ou não apontava para mais que cinco objetos diferentes.", domain: "LG" },
+                { text: "Repete ou repetia a mesma frase vÃ¡rias vezes.", domain: "LG" },
+                { text: "NÃ£o imita ou nÃ£o imitava brincadeiras de outras crianÃ§as.", domain: "RE" },
+                { text: "NÃ£o pisca ou nÃ£o piscava quando luz forte incide em seus olhos.", domain: "ES" },
+                { text: "Machuca ou machucava a si mesmo (mordendo, batendo a cabeÃ§a etc.).", domain: "ES" },
+                { text: "NÃ£o sabe ou nÃ£o sabia esperar para ser atendido; quer tudo imediatamente.", domain: "PS" },
+                { text: "NÃ£o aponta ou nÃ£o apontava para mais que cinco objetos diferentes.", domain: "LG" },
                 { text: "Tem ou tinha dificuldade para fazer amizades.", domain: "RE" },
                 { text: "Tapa ou tapava os ouvidos para diversos sons.", domain: "ES" },
-                { text: "Gira ou girava objetos repetidamente ou os bate várias vezes.", domain: "CO" },
+                { text: "Gira ou girava objetos repetidamente ou os bate vÃ¡rias vezes.", domain: "CO" },
                 { text: "Teve dificuldade para aprender a usar o banheiro.", domain: "PS" },
                 { text: "Usa ou usava poucas palavras por dia para expressar necessidades.", domain: "LG" },
-                { text: "É ou era muito ansioso ou medroso.", domain: "PS" },
-                { text: "Franze, cobre ou vira os olhos quando em presença de luz natural.", domain: "ES" },
-                { text: "Não se veste ou não se vestia sem ajuda.", domain: "PS" },
+                { text: "Ã‰ ou era muito ansioso ou medroso.", domain: "PS" },
+                { text: "Franze, cobre ou vira os olhos quando em presenÃ§a de luz natural.", domain: "ES" },
+                { text: "NÃ£o se veste ou nÃ£o se vestia sem ajuda.", domain: "PS" },
                 { text: "Repete ou repetia frequentemente as mesmas palavras e/ou sons.", domain: "LG" },
                 { text: "Olha ou olhava como se estivesse 'atravessando' as pessoas com o olhar.", domain: "RE" },
                 { text: "Repete ou repetia perguntas ou frases ditas por outros (ecolalia).", domain: "LG" },
                 { text: "Parece ou parecia inconsciente dos perigos ao redor.", domain: "PS" },
                 { text: "Prefere ou preferia manipular objetos do que interagir com pessoas.", domain: "CO" },
                 { text: "Toca, cheira ou lambe objetos do ambiente.", domain: "ES" },
-                { text: "Não reage ou não reagia visualmente à presença de novas pessoas.", domain: "RE" },
-                { text: "Repete ou repetia sequências complexas de ações (ex: cobrir objetos).", domain: "CO" },
-                { text: "Destrói ou destruía brinquedos ou objetos da casa.", domain: "CO" },
+                { text: "NÃ£o reage ou nÃ£o reagia visualmente Ã  presenÃ§a de novas pessoas.", domain: "RE" },
+                { text: "Repete ou repetia sequÃªncias complexas de aÃ§Ãµes (ex: cobrir objetos).", domain: "CO" },
+                { text: "DestrÃ³i ou destruÃ­a brinquedos ou objetos da casa.", domain: "CO" },
                 { text: "Apresentou atraso no desenvolvimento identificado antes dos 30 meses de idade.", domain: "PS" },
                 { text: "Usa entre 15 e 30 frases por dia para se comunicar.", domain: "LG" },
-                { text: "Fixa o olhar em pontos do ambiente por longos períodos.", domain: "ES" }
+                { text: "Fixa o olhar em pontos do ambiente por longos perÃ­odos.", domain: "ES" }
             ];
 
             const questionsList = document.getElementById('questions-list');
@@ -209,7 +215,7 @@
                         </label>
                         <label class="flex items-center space-x-2 cursor-pointer">
                             <input type="radio" name="q${index + 1}" value="nao" data-domain="${q.domain}" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500">
-                            <span>Não</span>
+                            <span>NÃ£o</span>
                         </label>
                     </div>
                 `;
@@ -265,7 +271,7 @@
                     data.respostas.push({
                         pergunta: `${index + 1}. ${q.text}`,
                         dominio: q.domain,
-                        resposta: answer || 'Não respondido'
+                        resposta: answer || 'NÃ£o respondido'
                     });
                 });
                 return data;
@@ -279,7 +285,7 @@
                 const data = getFormDataAsObject();
                 const nomeFilho = (data.identificacao.nome_filho || 'resultado').replace(/\s+/g, '_');
                 const jsonString = JSON.stringify(data, null, 2);
-                const blob = new Blob([jsonString], { type: 'application/json' });
+                const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -292,10 +298,10 @@
 
             document.getElementById('send-whatsapp').addEventListener('click', () => {
                 const data = getFormDataAsObject();
-                const nomeFilho = data.identificacao.nome_filho || 'Não preenchido';
+                const nomeFilho = data.identificacao.nome_filho || 'NÃ£o preenchido';
                 const scores = data.pontuacao;
                 let message = `*Resultados do Teste ICA para: ${nomeFilho}*\n\n`;
-                message += `*Pontuação por Domínio:*\n`;
+                message += `*PontuaÃ§Ã£o por DomÃ­nio:*\n`;
                 message += `ES: ${scores.es}\n`;
                 message += `RE: ${scores.re}\n`;
                 message += `CO: ${scores.co}\n`;
@@ -309,21 +315,21 @@
 
             document.getElementById('send-email').addEventListener('click', () => {
                 const data = getFormDataAsObject();
-                const nomeFilho = data.identificacao.nome_filho || 'Não preenchido';
+                const nomeFilho = data.identificacao.nome_filho || 'NÃ£o preenchido';
                 const scores = data.pontuacao;
                 
                 const subject = `Resultados do Teste ICA - ${nomeFilho}`;
-                let body = `Olá,\n\nSeguem os resultados do Inventário de Comportamentos Autísticos (ICA) para ${nomeFilho}.\n\n`;
-                body += `== DADOS DE IDENTIFICAÇÃO ==\n`;
-                body += `Data da aplicação: ${data.identificacao.data_aplicacao || 'N/A'}\n`;
+                let body = `OlÃ¡,\n\nSeguem os resultados do InventÃ¡rio de Comportamentos AutÃ­sticos (ICA) para ${nomeFilho}.\n\n`;
+                body += `== DADOS DE IDENTIFICAÃ‡ÃƒO ==\n`;
+                body += `Data da aplicaÃ§Ã£o: ${data.identificacao.data_aplicacao || 'N/A'}\n`;
                 body += `Idade atual: ${data.identificacao.idade_atual || 'N/A'}\n\n`;
-                body += `== PONTUAÇÃO POR DOMÍNIO ==\n`;
+                body += `== PONTUAÃ‡ÃƒO POR DOMÃNIO ==\n`;
                 body += `ES: ${scores.es}\n`;
                 body += `RE: ${scores.re}\n`;
                 body += `CO: ${scores.co}\n`;
                 body += `LG: ${scores.lg}\n`;
                 body += `PS: ${scores.ps}\n\n`;
-                body += `PONTUAÇÃO TOTAL: ${scores.total}\n\n`;
+                body += `PONTUAÃ‡ÃƒO TOTAL: ${scores.total}\n\n`;
                 body += `Atenciosamente.`;
 
                 const emailUrl = `mailto:psifanuel@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -331,7 +337,6 @@
             });
         });
     </script>
+</body>
+</html>
 
-
-
-</body></html>
