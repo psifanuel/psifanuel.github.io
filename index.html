@@ -1,162 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservatório de Testes - Fanuel Candido Glanzmann</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background-color: #3b82f6;
-        }
-    </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+# To run this code you need to install the following dependencies:
+# pip install google-genai
 
-    <!-- Cabeçalho e Navegação -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-xl font-bold text-blue-600">
-                <a href="index.html">Portal de Avaliação</a>
-            </div>
-            <div class="hidden md:flex space-x-6 items-center">
-                <a href="index.html#sobre" class="text-gray-600 hover:text-blue-600 transition duration-300">Sobre Mim</a>
-                <a href="testes.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Testes Disponíveis</a>
-                <a href="reservatorio.html" class="text-blue-600 font-semibold hover:text-blue-700 transition duration-300">Reservatório de Testes</a>
-                <a href="index.html#como-funciona" class="text-gray-600 hover:text-blue-600 transition duration-300">Como Funciona</a>
-                <a href="index.html#contato" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition duration-300">Agendar Avaliação</a>
-            </div>
-            <div class="md:hidden">
-                <!-- Menu mobile pode ser adicionado aqui -->
-            </div>
-        </nav>
-    </header>
+import base64
+import mimetypes
+import os
+from google import genai
+from google.genai import types
 
-    <!-- Conteúdo Principal -->
-    <main class="container mx-auto px-6 py-16">
-        <h1 class="text-4xl font-bold text-center section-title relative inline-block mx-auto" style="left: 50%; transform: translateX(-50%);">Reservatório de Testes</h1>
-        <p class="text-center text-gray-600 max-w-3xl mx-auto mt-4 mb-12">
-            Acesso a uma coleção de instrumentos e questionários utilizados como parte do processo de avaliação. Esta área é destinada a pacientes que receberam orientação para preenchimento.
-        </p>
 
-        <!-- Tabela de Testes -->
-        <div class="bg-white rounded-lg shadow overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Nome do Instrumento
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Área Avaliada
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Público-Alvo
-                        </th>
-                        <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Ação
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <!-- Item 1 -->
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">Inventário de Ansiedade de Beck (BAI)</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-600">Sintomas de Ansiedade</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Adultos
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <a href="#" class="text-blue-600 hover:text-blue-900 font-medium">Acessar Teste</a>
-                        </td>
-                    </tr>
-                    <!-- Item 2 -->
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">Inventário de Depressão de Beck (BDI)</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-600">Sintomas de Depressão</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Adultos e Adolescentes
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                             <a href="#" class="text-blue-600 hover:text-blue-900 font-medium">Acessar Teste</a>
-                        </td>
-                    </tr>
-                     <!-- Item 3 -->
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">Escala de Autoestima de Rosenberg</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-600">Autoestima Global</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Adultos e Adolescentes
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                             <a href="#" class="text-blue-600 hover:text-blue-900 font-medium">Acessar Teste</a>
-                        </td>
-                    </tr>
-                     <!-- Item 4 -->
-                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900">Questionário de Qualidade de Vida (WHOQOL-BREF)</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm text-gray-600">Qualidade de Vida</div>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                Adultos
-                            </span>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                             <a href="#" class="text-blue-600 hover:text-blue-900 font-medium">Acessar Teste</a>
-                        </td>
-                    </tr>
-                    <!-- Mais itens podem ser adicionados aqui -->
-                </tbody>
-            </table>
-        </div>
-    </main>
+def save_binary_file(file_name, data):
+    f = open(file_name, "wb")
+    f.write(data)
+    f.close()
+    print(f"File saved to to: {file_name}")
 
-    <!-- Rodapé -->
-    <footer class="bg-gray-800 text-gray-300 py-8 mt-16">
-        <div class="container mx-auto px-6 text-center">
-            <p><strong>Fanuel Candido Glanzmann</strong> | Psicólogo e Neuropsicólogo</p>
-            <p class="text-sm">CRP: 05/37574</p>
-            <div class="mt-4">
-                <a href="#" class="text-gray-400 hover:text-white mx-2">LinkedIn</a>
-                <span class="text-gray-500">|</span>
-                <a href="#" class="text-gray-400 hover:text-white mx-2">Instagram</a>
-            </div>
-            <p class="text-xs text-gray-500 mt-6">&copy; 2025 Fanuel Candido Glanzmann. Todos os direitos reservados. Plataforma de avaliação psicológica.</p>
-        </div>
-    </footer>
-</body>
-</html>
+
+def generate():
+    client = genai.Client(
+        api_key=os.environ.get("GEMINI_API_KEY"),
+    )
+
+    model = "gemini-2.5-flash-image"
+    contents = [
+        types.Content(
+            role="user",
+            parts=[
+                types.Part.from_text(text="""INSERT_INPUT_HERE"""),
+            ],
+        ),
+    ]
+    generate_content_config = types.GenerateContentConfig(
+        response_modalities=[
+            "IMAGE",
+            "TEXT",
+        ],
+    )
+
+    file_index = 0
+    for chunk in client.models.generate_content_stream(
+        model=model,
+        contents=contents,
+        config=generate_content_config,
+    ):
+        if (
+            chunk.candidates is None
+            or chunk.candidates[0].content is None
+            or chunk.candidates[0].content.parts is None
+        ):
+            continue
+        if chunk.candidates[0].content.parts[0].inline_data and chunk.candidates[0].content.parts[0].inline_data.data:
+            file_name = f"ENTER_FILE_NAME_{file_index}"
+            file_index += 1
+            inline_data = chunk.candidates[0].content.parts[0].inline_data
+            data_buffer = inline_data.data
+            file_extension = mimetypes.guess_extension(inline_data.mime_type)
+            save_binary_file(f"{file_name}{file_extension}", data_buffer)
+        else:
+            print(chunk.text)
+
+if __name__ == "__main__":
+    generate()
