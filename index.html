@@ -7,17 +7,36 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc, query, writeBatch } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- CONFIGURAÇÃO DO FIREBASE ---
+        // Estas variáveis serão substituídas pelo ambiente de execução.
+        // Para testes locais, você pode substituir '{}' pela sua configuração do Firebase.
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        // --- INICIALIZAÇÃO DO FIREBASE ---
+        let app, db, auth;
+        try {
+            app = initializeApp(firebaseConfig);
+            db = getFirestore(app);
+            auth = getAuth(app);
+            window.firebaseInstances = { app, db, auth, collection, getDocs, addDoc, query, writeBatch, appId };
+            console.log("Firebase inicializado com sucesso.");
+        } catch (e) {
+            console.error("Erro ao inicializar o Firebase. Verifique sua configuração.", e);
+            // Desabilita funcionalidades que dependem do Firebase se a inicialização falhar
+            window.firebaseInstances = null;
+        }
+    </script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
-        }
-        .tag-chip {
-            transition: all 0.2s ease-in-out;
-        }
-        .tag-chip:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
         .modal-backdrop {
             background-color: rgba(0, 0, 0, 0.5);
@@ -29,20 +48,11 @@
             transform: translateY(-50px);
             opacity: 0;
         }
-        /* Custom scrollbar for better aesthetics */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -72,7 +82,16 @@
             <!-- Filters Sidebar -->
             <aside class="w-full lg:w-1/4 xl:w-1/5">
                 <div class="bg-white p-5 rounded-lg shadow-sm sticky top-24">
-                    <h2 class="text-lg font-semibold mb-4 border-b pb-2">Filtros</h2>
+                    <div id="firebase-admin" class="mb-4">
+                        <h3 class="font-semibold mb-2 text-gray-500 text-sm">Admin Firebase</h3>
+                        <p id="auth-status" class="text-xs text-gray-400 mb-2">Status: Desconectado</p>
+                        <button id="seed-firestore" class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors text-sm disabled:bg-gray-400">
+                            <i class="fas fa-database mr-2"></i>Povoar Banco de Dados
+                        </button>
+                        <p class="text-xs text-gray-400 mt-1">Clique uma vez para enviar os dados de exemplo.</p>
+                    </div>
+
+                    <h2 class="text-lg font-semibold mb-4 border-t pt-4">Filtros</h2>
                     
                     <!-- Search -->
                     <div class="mb-5">
@@ -91,7 +110,7 @@
                         </div>
                     </div>
 
-                    <!-- Type Filter -->
+                    <!-- Outros filtros -->
                     <div class="mb-5">
                         <h3 class="font-semibold mb-2">Tipo</h3>
                         <select id="type-filter" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
@@ -103,7 +122,6 @@
                         </select>
                     </div>
 
-                    <!-- Access Level Filter -->
                     <div class="mb-5">
                         <h3 class="font-semibold mb-2">Acesso</h3>
                         <select id="access-filter" class="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500">
@@ -139,92 +157,53 @@
                 
                 <!-- Items Grid -->
                 <div id="items-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                    <!-- Item cards will be dynamically inserted here -->
+                    <!-- Loading Skeleton -->
                 </div>
                 <div id="no-results" class="hidden text-center py-10">
                     <i class="fas fa-search text-4xl text-gray-300 mb-4"></i>
                     <p class="text-xl text-gray-500">Nenhum instrumento encontrado.</p>
-                    <p class="text-gray-400">Tente ajustar seus filtros de busca.</p>
                 </div>
             </section>
         </div>
     </main>
 
-    <!-- Modal -->
+    <!-- Modal (Estrutura HTML inalterada) -->
     <div id="item-modal" class="modal-backdrop fixed inset-0 z-50 flex items-center justify-center p-4 modal-hidden hidden">
         <div class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
-            <!-- Modal Header -->
             <div class="flex justify-between items-center p-5 border-b">
-                <h2 id="modal-title" class="text-2xl font-bold text-gray-800">Título do Instrumento</h2>
+                <h2 id="modal-title" class="text-2xl font-bold text-gray-800"></h2>
                 <button id="modal-close" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
-            
-            <!-- Modal Body -->
             <div class="p-6 overflow-y-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mb-4">
                     <div class="bg-gray-50 p-3 rounded-lg"><i class="fas fa-user-edit mr-2 text-cyan-600"></i><strong>Autor:</strong> <span id="modal-author"></span></div>
                     <div class="bg-gray-50 p-3 rounded-lg"><i class="fas fa-tag mr-2 text-cyan-600"></i><strong>Tipo:</strong> <span id="modal-type"></span></div>
-                    <div class="bg-gray-50 p-3 rounded-lg"><i class="fas fa-clock mr-2 text-cyan-600"></i><strong>Tempo Estimado:</strong> <span id="modal-time"></span></div>
+                    <div class="bg-gray-50 p-3 rounded-lg"><i class="fas fa-clock mr-2 text-cyan-600"></i><strong>Tempo:</strong> <span id="modal-time"></span></div>
                     <div class="bg-gray-50 p-3 rounded-lg"><i class="fas fa-lock mr-2 text-cyan-600"></i><strong>Acesso:</strong> <span id="modal-access"></span></div>
                 </div>
-
-                <div class="mb-4">
-                    <h3 class="font-semibold text-lg mb-2">Descrição</h3>
-                    <p id="modal-description" class="text-gray-600"></p>
-                </div>
-
-                <div class="mb-4">
-                    <h3 class="font-semibold text-lg mb-2">Instruções de Aplicação</h3>
-                    <p id="modal-instructions" class="text-gray-600"></p>
-                </div>
-                
-                 <div class="mb-4">
-                    <h3 class="font-semibold text-lg mb-2">Público-Alvo</h3>
-                    <p id="modal-target" class="text-gray-600"></p>
-                </div>
-
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">Tags</h3>
-                    <div id="modal-tags" class="flex flex-wrap gap-2">
-                        <!-- Modal tags here -->
-                    </div>
-                </div>
+                <div class="mb-4"><h3 class="font-semibold text-lg mb-2">Descrição</h3><p id="modal-description" class="text-gray-600"></p></div>
+                <div class="mb-4"><h3 class="font-semibold text-lg mb-2">Instruções</h3><p id="modal-instructions" class="text-gray-600"></p></div>
+                <div class="mb-4"><h3 class="font-semibold text-lg mb-2">Público-Alvo</h3><p id="modal-target" class="text-gray-600"></p></div>
+                <div><h3 class="font-semibold text-lg mb-2">Tags</h3><div id="modal-tags" class="flex flex-wrap gap-2"></div></div>
             </div>
-
-            <!-- Modal Footer -->
             <div class="flex flex-wrap justify-end items-center gap-3 p-5 border-t mt-auto bg-gray-50">
-                <button id="modal-favorite-btn" class="flex items-center px-4 py-2 bg-white border border-yellow-400 text-yellow-500 rounded-lg hover:bg-yellow-50 transition">
-                    <i class="far fa-star mr-2"></i><span class="favorite-text">Favoritar</span>
-                </button>
-                <button id="modal-copy-link-btn" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition">
-                    <i class="fas fa-copy mr-2"></i>Copiar Link
-                </button>
-                <a id="modal-open-link-btn" href="#" target="_blank" class="flex items-center px-6 py-2 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-700 transition shadow-sm">
-                    Abrir Teste <i class="fas fa-external-link-alt ml-2"></i>
-                </a>
+                <button id="modal-favorite-btn" class="flex items-center px-4 py-2 bg-white border border-yellow-400 text-yellow-500 rounded-lg hover:bg-yellow-50 transition"><i class="far fa-star mr-2"></i><span class="favorite-text">Favoritar</span></button>
+                <button id="modal-copy-link-btn" class="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition"><i class="fas fa-copy mr-2"></i>Copiar Link</button>
+                <a id="modal-open-link-btn" href="#" target="_blank" class="flex items-center px-6 py-2 bg-cyan-600 text-white font-semibold rounded-lg hover:bg-cyan-700 transition shadow-sm">Abrir Teste <i class="fas fa-external-link-alt ml-2"></i></a>
             </div>
         </div>
     </div>
 
 
-    <script>
+    <script type="module">
         document.addEventListener('DOMContentLoaded', () => {
+            const { app, db, auth, collection, getDocs, addDoc, query, writeBatch, appId } = window.firebaseInstances || {};
 
-            // --- DADOS DE EXEMPLO ---
-            // Em uma aplicação real, estes dados viriam de uma API (Backend)
-            const instrumentos = [
-                { id: 1, title: "Escala Beck de Depressão (BDI-II)", description: "Avalia a intensidade dos sintomas depressivos em adultos e adolescentes.", tags: ["depressão", "adultos", "rastreio", "clínica"], author: "Aaron T. Beck", type: "Escala", accessLevel: "Restrito", language: "Português", time: 10, version: "2.0", createdAt: "2023-10-26", popularity: 120, link: "#" },
-                { id: 2, title: "Inventário de Ansiedade Traço-Estado (IDATE)", description: "Mede dois conceitos distintos de ansiedade: traço e estado.", tags: ["ansiedade", "adultos", "avaliação"], author: "Spielberger, Gorsuch & Lushene", type: "Escala", accessLevel: "Restrito", language: "Português", time: 15, version: "1.1", createdAt: "2023-09-15", popularity: 95, link: "#" },
-                { id: 3, title: "Questionário de Saúde Geral (QSG-12)", description: "Instrumento de rastreio para transtornos mentais não-psicóticos.", tags: ["rastreio", "saúde mental", "triagem"], author: "David Goldberg", type: "Screening", accessLevel: "Público", language: "Português", time: 5, version: "1.0", createdAt: "2024-01-10", popularity: 250, link: "#" },
-                { id: 4, title: "Anamnese Infantil Completa", description: "Modelo de formulário para coleta de dados na avaliação infantil.", tags: ["infantil", "anamnese", "clínica"], author: "Comunidade Psy", type: "Anamnese", accessLevel: "Público", language: "Português", time: 45, version: "3.2", createdAt: "2022-11-20", popularity: 180, link: "#" },
-                { id: 5, title: "Escala de Estresse Percebido (PSS)", description: "Mede o grau em que as situações na vida de uma pessoa são avaliadas como estressantes.", tags: ["estresse", "adultos", "avaliação"], author: "Sheldon Cohen", type: "Escala", accessLevel: "Público", language: "Português", time: 8, version: "1.0", createdAt: "2023-05-01", popularity: 155, link: "#" },
-                { id: 6, title: "Inventário de Habilidades Sociais (IHS-Del-Prette)", description: "Avalia o repertório de habilidades sociais em diferentes contextos.", tags: ["habilidades sociais", "avaliação", "jovens", "adultos"], author: "Zilda & Almir Del Prette", type: "Questionário", accessLevel: "Restrito", language: "Português", time: 25, version: "2.1", createdAt: "2023-08-19", popularity: 75, link: "#" },
-                { id: 7, title: "PHQ-9: Questionário de Saúde do Paciente", description: "Instrumento para rastreamento e monitoramento da gravidade da depressão.", tags: ["depressão", "rastreio", "saúde primária"], author: "Spitzer, Kroenke & Williams", type: "Screening", accessLevel: "Público", language: "Português", time: 5, version: "1.0", createdAt: "2024-02-01", popularity: 310, link: "#" },
-                { id: 8, title: "Escala de Autoestima de Rosenberg", description: "Mede a autoestima global e sentimentos de autoaceitação.", tags: ["autoestima", "adultos", "jovens", "avaliação"], author: "Morris Rosenberg", type: "Escala", accessLevel: "Público", language: "Português", time: 5, version: "1.0", createdAt: "2023-03-22", popularity: 280, link: "#" },
-                { id: 9, title: "Conners' Adult ADHD Rating Scales (CAARS)", description: "Escalas para avaliação de TDAH em adultos.", tags: ["TDAH", "adultos", "diagnóstico"], author: "C. Keith Conners", type: "Escala", accessLevel: "Restrito", language: "Inglês", time: 20, version: "1.0", createdAt: "2023-11-30", popularity: 60, link: "#" },
-                { id: 10, title: "Formulário de Consentimento Informado", description: "Modelo padrão de termo de consentimento livre e esclarecido (TCLE).", tags: ["ética", "documento", "clínica"], author: "Conselho Federal de Psicologia", type: "Anamnese", accessLevel: "Público", language: "Português", time: 3, version: "2023.1", createdAt: "2023-01-01", popularity: 400, link: "#" },
-                { id: 11, title: "WHOQOL-BREF", description: "Instrumento da OMS para avaliação de qualidade de vida (versão breve).", tags: ["qualidade de vida", "avaliação", "OMS"], author: "Organização Mundial da Saúde", type: "Questionário", accessLevel: "Público", language: "Português", time: 10, version: "1.0", createdAt: "2023-06-18", popularity: 190, link: "#" },
-                { id: 12, title: "Escala de Pânico e Agorafobia (EPA)", description: "Avalia a severidade de sintomas relacionados ao transtorno de pânico e agorafobia.", tags: ["ansiedade", "pânico", "agorafobia"], author: "I. Marks & R. Mathews", type: "Escala", accessLevel: "Restrito", language: "Português", time: 15, version: "1.0", createdAt: "2023-07-04", popularity: 88, link: "#" },
+            // --- DADOS DE FALLBACK ---
+            const localFallbackData = [
+                { id: 1, title: "Escala Beck de Depressão (BDI-II)", description: "Avalia a intensidade dos sintomas depressivos.", tags: ["depressão", "adultos", "rastreio", "clínica"], author: "Aaron T. Beck", type: "Escala", accessLevel: "Restrito", time: 10, createdAt: "2023-10-26", popularity: 120, link: "#" },
+                { id: 2, title: "Inventário de Ansiedade Traço-Estado (IDATE)", description: "Mede conceitos de ansiedade: traço e estado.", tags: ["ansiedade", "adultos", "avaliação"], author: "Spielberger, Gorsuch & Lushene", type: "Escala", accessLevel: "Restrito", time: 15, createdAt: "2023-09-15", popularity: 95, link: "#" },
+                { id: 3, title: "Questionário de Saúde Geral (QSG-12)", description: "Rastreio para transtornos mentais não-psicóticos.", tags: ["rastreio", "saúde mental", "triagem"], author: "David Goldberg", type: "Screening", accessLevel: "Público", time: 5, createdAt: "2024-01-10", popularity: 250, link: "#" },
             ];
 
             // --- ELEMENTOS DO DOM ---
@@ -239,104 +218,138 @@
             const clearFiltersBtn = document.getElementById('clear-filters');
             const modal = document.getElementById('item-modal');
             const modalCloseBtn = document.getElementById('modal-close');
+            const seedFirestoreBtn = document.getElementById('seed-firestore');
+            const authStatus = document.getElementById('auth-status');
             
             // --- ESTADO DA APLICAÇÃO ---
-            let filters = {
-                searchTerm: '',
-                selectedTags: new Set(),
-                type: 'all',
-                access: 'all'
+            let allInstruments = [];
+            let filters = { search: '', tags: new Set(), type: 'all', access: 'all' };
+            let sortBy = 'recent';
+            let debounceTimer;
+            
+            // --- FUNÇÕES DE DADOS (FIREBASE) ---
+            const seedFirestore = async () => {
+                if (!db) return alert("Firebase não está conectado.");
+                seedFirestoreBtn.disabled = true;
+                seedFirestoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Verificando...';
+
+                const collectionPath = `/artifacts/${appId}/public/data/instrumentos`;
+                const instrumentsRef = collection(db, collectionPath);
+                const q = query(instrumentsRef);
+                const snapshot = await getDocs(q);
+
+                if (!snapshot.empty) {
+                    alert("O banco de dados já contém dados. O povoamento foi ignorado.");
+                    seedFirestoreBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Já Povoado';
+                    return;
+                }
+
+                seedFirestoreBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Enviando...';
+                try {
+                    const batch = writeBatch(db);
+                    localFallbackData.forEach(instrument => {
+                        // Não é necessário criar um doc ref antes, o batch faz isso
+                        batch.set(doc(instrumentsRef), instrument);
+                    });
+                    await batch.commit();
+                    alert("Banco de dados povoado com sucesso!");
+                    seedFirestoreBtn.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Povoado!';
+                    await init(); // Recarrega os dados do Firestore
+                } catch (error) {
+                    console.error("Erro ao povoar o Firestore: ", error);
+                    alert("Ocorreu um erro ao povoar o banco de dados.");
+                    seedFirestoreBtn.innerHTML = '<i class="fas fa-database mr-2"></i>Povoar Banco de Dados';
+                    seedFirestoreBtn.disabled = false;
+                }
             };
 
-            let sortBy = 'recent';
-
-            // --- FUNÇÕES DE RENDERIZAÇÃO ---
-
-            // Gera o HTML para um único card de instrumento
+            const getData = async () => {
+                if (!db) return localFallbackData; // Retorna fallback se Firebase falhou
+                try {
+                    const collectionPath = `/artifacts/${appId}/public/data/instrumentos`;
+                    const instrumentsCollectionRef = collection(db, collectionPath);
+                    const querySnapshot = await getDocs(instrumentsCollectionRef);
+                    const instruments = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+                    
+                    if (instruments.length === 0) {
+                        console.warn("Firestore está vazio. Usando dados locais.");
+                        return localFallbackData;
+                    }
+                    console.log("Dados carregados do Firestore.");
+                    return instruments;
+                } catch (error) {
+                    console.error("Erro ao buscar dados do Firestore:", error);
+                    return localFallbackData; // Retorna fallback em caso de erro
+                }
+            };
+            
+            // --- LÓGICA DE RENDERIZAÇÃO E FILTROS ---
             const createItemCard = (item) => {
                 const tagsHTML = item.tags.map(tag => `<span class="bg-cyan-100 text-cyan-800 text-xs font-medium px-2.5 py-0.5 rounded-full">${tag}</span>`).join(' ');
-                
                 return `
                     <div class="bg-white rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col cursor-pointer" data-id="${item.id}">
                         <div class="p-5 flex-grow">
                             <h3 class="text-lg font-bold text-gray-900 mb-2 truncate">${item.title}</h3>
                             <p class="text-gray-600 text-sm mb-4 h-10 overflow-hidden">${item.description}</p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                ${tagsHTML}
-                            </div>
+                            <div class="flex flex-wrap gap-2 mb-4">${tagsHTML}</div>
                         </div>
                         <div class="px-5 py-3 bg-gray-50 border-t rounded-b-lg flex justify-between items-center text-sm text-gray-500">
                             <div><i class="fas fa-clock mr-1"></i> ${item.time} min</div>
                             <div><i class="fas fa-user-edit mr-1"></i> ${item.author.split(',')[0]}</div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             };
-            
-            // Renderiza todos os cards na tela
-            const renderItems = () => {
-                // 1. Filtrar
-                let filteredItems = instrumentos.filter(item => {
-                    const searchMatch = item.title.toLowerCase().includes(filters.searchTerm) || item.description.toLowerCase().includes(filters.searchTerm) || item.author.toLowerCase().includes(filters.searchTerm);
-                    const tagsMatch = filters.selectedTags.size === 0 || [...filters.selectedTags].every(tag => item.tags.includes(tag));
+
+            const applyFiltersAndRender = () => {
+                let items = [...allInstruments];
+                
+                // Filtros
+                items = items.filter(item => {
+                    const searchMatch = filters.search === '' || item.title.toLowerCase().includes(filters.search) || item.description.toLowerCase().includes(filters.search) || item.author.toLowerCase().includes(filters.search);
+                    const tagsMatch = filters.tags.size === 0 || [...filters.tags].every(tag => item.tags.includes(tag));
                     const typeMatch = filters.type === 'all' || item.type === filters.type;
                     const accessMatch = filters.access === 'all' || item.accessLevel === filters.access;
                     return searchMatch && tagsMatch && typeMatch && accessMatch;
                 });
 
-                // 2. Ordenar
-                switch (sortBy) {
-                    case 'recent':
-                        filteredItems.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                        break;
-                    case 'popular':
-                        filteredItems.sort((a, b) => b.popularity - a.popularity);
-                        break;
-                    case 'time-asc':
-                        filteredItems.sort((a, b) => a.time - b.time);
-                        break;
-                    case 'time-desc':
-                        filteredItems.sort((a, b) => b.time - a.time);
-                        break;
-                    case 'alpha-asc':
-                        filteredItems.sort((a, b) => a.title.localeCompare(b.title));
-                        break;
-                    case 'alpha-desc':
-                        filteredItems.sort((a, b) => b.title.localeCompare(a.title));
-                        break;
-                }
+                // Ordenação
+                items.sort((a, b) => {
+                    switch (sortBy) {
+                        case 'popular': return b.popularity - a.popularity;
+                        case 'time-asc': return a.time - b.time;
+                        case 'time-desc': return b.time - a.time;
+                        case 'alpha-asc': return a.title.localeCompare(b.title);
+                        case 'alpha-desc': return b.title.localeCompare(a.title);
+                        case 'recent':
+                        default: return new Date(b.createdAt) - new Date(a.createdAt);
+                    }
+                });
                 
-                // 3. Limpar e exibir
+                // Renderização
                 itemsGrid.innerHTML = '';
-                if (filteredItems.length > 0) {
-                    itemsGrid.innerHTML = filteredItems.map(createItemCard).join('');
+                if (items.length > 0) {
+                    itemsGrid.innerHTML = items.map(createItemCard).join('');
                     itemsGrid.classList.remove('hidden');
                     noResultsDiv.classList.add('hidden');
                 } else {
                     itemsGrid.classList.add('hidden');
                     noResultsDiv.classList.remove('hidden');
                 }
-
-                // 4. Atualizar contador
-                itemCountP.textContent = `${filteredItems.length} instrumento(s) encontrado(s).`;
+                itemCountP.textContent = `${items.length} instrumento(s) encontrado(s).`;
             };
 
-            // Renderiza as tags no filtro da sidebar
             const renderTagsFilter = () => {
-                const allTags = new Set(instrumentos.flatMap(item => item.tags));
+                const allTags = new Set(allInstruments.flatMap(item => item.tags));
                 tagsFilterDiv.innerHTML = [...allTags].sort().map(tag => `
                     <label class="flex items-center space-x-2 cursor-pointer">
                         <input type="checkbox" class="form-checkbox h-4 w-4 rounded text-cyan-600 focus:ring-cyan-500" data-tag="${tag}">
                         <span class="text-gray-700">${tag}</span>
-                    </label>
-                `).join('');
+                    </label>`).join('');
             };
 
-
             // --- LÓGICA DO MODAL ---
-            
             const showModal = (itemId) => {
-                const item = instrumentos.find(i => i.id === parseInt(itemId));
+                const item = allInstruments.find(i => i.id === itemId); // ID do Firestore é string
                 if (!item) return;
 
                 document.getElementById('modal-title').textContent = item.title;
@@ -345,139 +358,111 @@
                 document.getElementById('modal-time').textContent = `${item.time} minutos`;
                 document.getElementById('modal-access').textContent = item.accessLevel;
                 document.getElementById('modal-description').textContent = item.description;
-                document.getElementById('modal-instructions').textContent = "Siga as instruções contidas no manual do teste. A aplicação deve ser realizada por um profissional qualificado. Certifique-se de que o ambiente é silencioso e livre de interrupções."; // Exemplo
-                document.getElementById('modal-target').textContent = "Varia conforme o instrumento. Consulte o manual para informações detalhadas sobre a população-alvo apropriada."; // Exemplo
-
-                const modalTagsContainer = document.getElementById('modal-tags');
-                modalTagsContainer.innerHTML = item.tags.map(tag => `<span class="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">${tag}</span>`).join(' ');
-
-                const openLinkBtn = document.getElementById('modal-open-link-btn');
-                openLinkBtn.href = item.link;
-
-                const copyLinkBtn = document.getElementById('modal-copy-link-btn');
-                copyLinkBtn.onclick = () => {
-                    // Nota: navigator.clipboard.writeText pode não funcionar em todos os contextos (ex: iframe).
-                    // Usando um método fallback.
-                    const tempInput = document.createElement('input');
-                    document.body.appendChild(tempInput);
-                    tempInput.value = window.location.origin + window.location.pathname + item.link; // Simula link completo
-                    tempInput.select();
-                    try {
-                        document.execCommand('copy');
-                        copyLinkBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Copiado!';
-                        setTimeout(() => { copyLinkBtn.innerHTML = '<i class="fas fa-copy mr-2"></i>Copiar Link'; }, 2000);
-                    } catch (err) {
-                        console.error('Falha ao copiar link: ', err);
-                        alert('Não foi possível copiar o link.');
-                    }
-                    document.body.removeChild(tempInput);
-                };
-
+                document.getElementById('modal-instructions').textContent = "Siga as instruções contidas no manual do teste.";
+                document.getElementById('modal-target').textContent = "Varia conforme o instrumento.";
+                
+                document.getElementById('modal-tags').innerHTML = item.tags.map(tag => `<span class="bg-gray-200 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">${tag}</span>`).join(' ');
+                document.getElementById('modal-open-link-btn').href = item.link;
+                
                 modal.classList.remove('hidden');
                 setTimeout(() => modal.classList.remove('modal-hidden'), 10);
-                document.body.style.overflow = 'hidden'; // Evita scroll do fundo
+                document.body.style.overflow = 'hidden';
             };
 
             const hideModal = () => {
                 modal.classList.add('modal-hidden');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }, 300);
+                setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = 'auto'; }, 300);
             };
 
             // --- EVENT LISTENERS ---
+            const setupEventListeners = () => {
+                if (seedFirestoreBtn) seedFirestoreBtn.addEventListener('click', seedFirestore);
 
-            // Filtro de busca
-            searchInput.addEventListener('input', (e) => {
-                filters.searchTerm = e.target.value.toLowerCase();
-                renderItems();
-            });
+                searchInput.addEventListener('input', (e) => {
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(() => {
+                        filters.search = e.target.value.toLowerCase();
+                        applyFiltersAndRender();
+                    }, 300);
+                });
 
-            // Filtro de tags
-            tagsFilterDiv.addEventListener('change', (e) => {
-                if (e.target.type === 'checkbox') {
-                    const tag = e.target.dataset.tag;
-                    if (e.target.checked) {
-                        filters.selectedTags.add(tag);
-                    } else {
-                        filters.selectedTags.delete(tag);
+                tagsFilterDiv.addEventListener('change', (e) => {
+                    if (e.target.type === 'checkbox') {
+                        const tag = e.target.dataset.tag;
+                        e.target.checked ? filters.tags.add(tag) : filters.tags.delete(tag);
+                        applyFiltersAndRender();
                     }
-                    renderItems();
+                });
+
+                typeFilterSelect.addEventListener('change', e => { filters.type = e.target.value; applyFiltersAndRender(); });
+                accessFilterSelect.addEventListener('change', e => { filters.access = e.target.value; applyFiltersAndRender(); });
+                sortBySelect.addEventListener('change', e => { sortBy = e.target.value; applyFiltersAndRender(); });
+
+                clearFiltersBtn.addEventListener('click', () => {
+                    filters = { search: '', tags: new Set(), type: 'all', access: 'all' };
+                    sortBy = 'recent';
+                    searchInput.value = '';
+                    typeFilterSelect.value = 'all';
+                    accessFilterSelect.value = 'all';
+                    sortBySelect.value = 'recent';
+                    document.querySelectorAll('#tags-filter input:checked').forEach(cb => cb.checked = false);
+                    applyFiltersAndRender();
+                });
+
+                itemsGrid.addEventListener('click', e => {
+                    const card = e.target.closest('[data-id]');
+                    if (card) showModal(card.dataset.id);
+                });
+
+                modalCloseBtn.addEventListener('click', hideModal);
+                modal.addEventListener('click', e => { if (e.target === modal) hideModal(); });
+            };
+
+            // --- INICIALIZAÇÃO ---
+            const init = async () => {
+                if (!db || !auth) {
+                    authStatus.textContent = 'Erro no Firebase!';
+                    authStatus.classList.add('text-red-500');
+                    allInstruments = localFallbackData;
+                    renderTagsFilter();
+                    applyFiltersAndRender();
+                    return;
                 }
-            });
 
-            // Filtros de select
-            typeFilterSelect.addEventListener('change', (e) => {
-                filters.type = e.target.value;
-                renderItems();
-            });
-            accessFilterSelect.addEventListener('change', (e) => {
-                filters.access = e.target.value;
-                renderItems();
-            });
-
-            // Ordenação
-            sortBySelect.addEventListener('change', (e) => {
-                sortBy = e.target.value;
-                renderItems();
-            });
-
-            // Limpar filtros
-            clearFiltersBtn.addEventListener('click', () => {
-                filters = { searchTerm: '', selectedTags: new Set(), type: 'all', access: 'all' };
-                sortBy = 'recent';
+                try {
+                    const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                    if(token) {
+                        await signInWithCustomToken(auth, token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                } catch(error) {
+                    console.error("Falha na autenticação anônima:", error);
+                }
                 
-                searchInput.value = '';
-                typeFilterSelect.value = 'all';
-                accessFilterSelect.value = 'all';
-                sortBySelect.value = 'recent';
-                document.querySelectorAll('#tags-filter input[type="checkbox"]').forEach(cb => cb.checked = false);
-                
-                renderItems();
-            });
-            
-            // Abrir modal ao clicar no card
-            itemsGrid.addEventListener('click', (e) => {
-                const card = e.target.closest('[data-id]');
-                if (card) {
-                    showModal(card.dataset.id);
-                }
-            });
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        authStatus.textContent = `Conectado como: ${user.uid.substring(0, 8)}...`;
+                        authStatus.classList.remove('text-red-500');
+                        authStatus.classList.add('text-green-500');
+                        seedFirestoreBtn.disabled = false;
+                        
+                        allInstruments = await getData();
+                        renderTagsFilter();
+                        applyFiltersAndRender();
+                    } else {
+                        authStatus.textContent = 'Autenticação falhou.';
+                        authStatus.classList.add('text-red-500');
+                        seedFirestoreBtn.disabled = true;
+                    }
+                });
+            };
 
-            // Fechar modal
-            modalCloseBtn.addEventListener('click', hideModal);
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    hideModal();
-                }
-            });
-
-            // Botão de favorito no modal (simulação)
-            const favBtn = document.getElementById('modal-favorite-btn');
-            favBtn.addEventListener('click', () => {
-                const icon = favBtn.querySelector('i');
-                const text = favBtn.querySelector('.favorite-text');
-                const isFavorited = icon.classList.contains('fas');
-
-                if (isFavorited) {
-                    icon.classList.replace('fas', 'far');
-                    text.textContent = 'Favoritar';
-                    favBtn.classList.remove('favorited');
-                } else {
-                    icon.classList.replace('far', 'fas');
-                    text.textContent = 'Favoritado';
-                    favBtn.classList.add('favorited');
-                }
-            });
-
-
-            // --- INICIALIZAÇÃO DA APLICAÇÃO ---
-            renderTagsFilter();
-            renderItems();
-
+            setupEventListeners();
+            init();
         });
     </script>
 
 </body>
 </html>
+
