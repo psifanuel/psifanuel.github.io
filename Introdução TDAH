@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infográfico: TDAH na Vida Adulta</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .flow-arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #4A5568;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-700 mb-2">TDAH na Vida Adulta</h1>
+            <p class="text-lg text-gray-600">Muito mais que apenas distração: um olhar aprofundado sobre os desafios e recursos.</p>
+        </header>
+
+        <main>
+            <section id="o-que-e" class="mb-16">
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 text-center">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-4">O Que é o TDAH no Adulto?</h2>
+                    <p class="text-gray-600 mb-8 max-w-3xl mx-auto">O Transtorno de Déficit de Atenção e Hiperatividade (TDAH) persiste na vida adulta em muitos casos, manifestando-se através de um padrão de desatenção, hiperatividade e impulsividade que impacta diversas áreas da vida, do trabalho aos relacionamentos.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <p class="text-6xl font-bold text-blue-600">~2%</p>
+                            <p class="text-gray-500 font-semibold">da população adulta é afetada pelo TDAH.</p>
+                        </div>
+                        <div class="md:col-span-2 bg-blue-50 rounded-lg p-6">
+                            <h3 class="text-xl font-semibold text-blue-800 mb-4">Sintomas Principais</h3>
+                            <div class="flex flex-wrap justify-center gap-4">
+                                <span class="bg-blue-200 text-blue-800 font-medium px-4 py-2 rounded-full">Déficit de Atenção</span>
+                                <span class="bg-blue-200 text-blue-800 font-medium px-4 py-2 rounded-full">Inquietação Interna</span>
+                                <span class="bg-blue-200 text-blue-800 font-medium px-4 py-2 rounded-full">Impulsividade</span>
+                                <span class="bg-blue-200 text-blue-800 font-medium px-4 py-2 rounded-full">Desregulação Emocional</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="dualidade" class="mb-16">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">A Dupla Face do TDAH</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold text-red-600 mb-4 text-center">Desafios Comuns</h3>
+                        <p class="text-gray-600 mb-6 text-center">Muitos adultos com TDAH enfrentam dificuldades persistentes que podem ser fonte de frustração e impactar negativamente a autoestima.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span><span>Desorganização e dificuldade em planejar tarefas.</span></li>
+                            <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span><span>Procrastinação crônica, adiando atividades importantes.</span></li>
+                            <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span><span>Dificuldade em manter relacionamentos estáveis.</span></li>
+                            <li class="flex items-start"><span class="text-red-500 font-bold mr-2">✗</span><span>Instabilidade profissional e mudanças frequentes de emprego.</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-bold text-green-600 mb-4 text-center">Recursos e Potenciais</h3>
+                        <p class="text-gray-600 mb-6 text-center">Por outro lado, a mente com TDAH possui características únicas que, quando bem direcionadas, se tornam grandes vantagens.</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✓</span><span><strong class="text-green-700">Hiperfoco:</strong> Capacidade de concentração intensa em tópicos de interesse.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✓</span><span><strong class="text-green-700">Criatividade:</strong> Pensamento divergente e habilidade para encontrar soluções inovadoras.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✓</span><span><strong class="text-green-700">Energia e Paixão:</strong> Grande disposição para se dedicar a projetos motivadores.</span></li>
+                            <li class="flex items-start"><span class="text-green-500 font-bold mr-2">✓</span><span><strong class="text-green-700">Resiliência:</strong> Capacidade de se recuperar de desafios e tentar novas abordagens.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="comorbidades" class="mb-16">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">Comorbidades: O TDAH Raramente Vem Sozinho</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">É muito comum que adultos com TDAH também apresentem outros transtornos mentais, o que torna o diagnóstico e o tratamento mais complexos. A identificação dessas condições é crucial para um plano terapêutico eficaz.</p>
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <div class="chart-container">
+                        <canvas id="comorbidadesChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">Prevalência estimada de comorbidades em adultos com TDAH.</p>
+                </div>
+            </section>
+            
+            <section id="impacto" class="mb-16">
+                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-2">Impacto na Vida</h2>
+                <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">Quando não diagnosticado ou tratado, o TDAH pode levar a consequências significativas, afetando a estabilidade profissional, financeira e pessoal ao longo da vida.</p>
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                    <div class="chart-container h-96 md:h-[450px] max-h-[500px]">
+                        <canvas id="impactoChart"></canvas>
+                    </div>
+                    <p class="text-center text-sm text-gray-500 mt-4">Comparativo ilustrativo do aumento de risco em diversas áreas da vida.</p>
+                </div>
+            </section>
+
+            <section id="tratamento" class="mb-16">
+                 <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">O Caminho a Seguir: Tratamento Multimodal</h2>
+                <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+                     <p class="text-center text-gray-600 mb-8 max-w-3xl mx-auto">O tratamento mais eficaz para o TDAH adulto não se baseia em uma única solução, mas sim na combinação de diferentes abordagens, focando tanto nos aspectos neurobiológicos quanto nos comportamentais e emocionais.</p>
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                        <div class="border-2 border-purple-300 bg-purple-50 rounded-lg p-6 text-center w-full md:w-1/3">
+                            <h3 class="text-xl font-bold text-purple-800">Psicoterapia</h3>
+                            <p class="text-gray-600 mt-2">Desenvolve estratégias para lidar com a desorganização, impulsividade e regulação emocional.</p>
+                        </div>
+                        <div class="flow-arrow font-bold text-purple-600">+</div>
+                        <div class="border-2 border-teal-300 bg-teal-50 rounded-lg p-6 text-center w-full md:w-1/3">
+                            <h3 class="text-xl font-bold text-teal-800">Medicação</h3>
+                            <p class="text-gray-600 mt-2">Atua na neurobiologia do TDAH, ajudando a regular a atenção e o controle de impulsos.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+             <footer class="text-center mt-12 py-6 border-t">
+                <p class="text-gray-600">O objetivo do tratamento é <strong class="text-blue-700">controlar o TDAH</strong>, em vez de ser controlado por ele.</p>
+                <p class="text-sm text-gray-500 mt-2">Informações baseadas no "Manual de Psicoterapia Para Adultos Com TDAH".</p>
+            </footer>
+        </main>
+
+    </div>
+
+    <script>
+        function wrapLabels(label, maxLength) {
+            if (typeof label !== 'string' || label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            words.forEach(word => {
+                if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            });
+            lines.push(currentLine.trim());
+            return lines;
+        }
+        
+        const commonTooltipCallback = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                },
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        };
+
+        const comorbidadesData = {
+            labels: ['Transtornos de Ansiedade', ['Abuso de', 'Substâncias'], 'Transtornos de Humor (Depressão)', 'Outros'],
+            datasets: [{
+                label: 'Prevalência',
+                data: [45, 35, 30, 15],
+                backgroundColor: [
+                    '#3357FF', // Blue
+                    '#FF5733', // Orange/Red
+                    '#A133FF', // Purple
+                    '#33FF57', // Green
+                ],
+                borderColor: '#f0f4f8',
+                borderWidth: 4
+            }]
+        };
+
+        const comorbidadesCtx = document.getElementById('comorbidadesChart').getContext('2d');
+        new Chart(comorbidadesCtx, {
+            type: 'doughnut',
+            data: comorbidadesData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                ...commonTooltipCallback
+            }
+        });
+        
+        const impactoData = {
+            labels: ['Desemprego', 'Divórcio', ['Dificuldades', 'Financeiras'], ['Problemas', 'Interpessoais']],
+            datasets: [{
+                label: 'Aumento do Risco',
+                data: [65, 55, 70, 60],
+                backgroundColor: '#3357FF',
+                borderColor: '#1e40af',
+                borderWidth: 1,
+                borderRadius: 5
+            }]
+        };
+
+        const impactoCtx = document.getElementById('impactoChart').getContext('2d');
+        new Chart(impactoCtx, {
+            type: 'bar',
+            data: impactoData,
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                 scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                           callback: function(value) {
+                                return value + '%'
+                            }
+                        }
+                    }
+                },
+                 ...commonTooltipCallback,
+                 plugins: {
+                     ...commonTooltipCallback.plugins,
+                     legend: {
+                         display: false
+                     }
+                 }
+            }
+        });
+    </script>
+</body>
+</html>
