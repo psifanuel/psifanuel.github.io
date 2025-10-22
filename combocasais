@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliação: Vidas Paralelas</title>
+    <!-- Bibliotecas para Gerar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <style>
+        :root {
+            --cor-primaria: #2c3e50;
+            --cor-secundaria: #3498db;
+            --cor-sucesso: #25D366;
+            --cor-perigo: #e74c3c;
+            --cor-fundo: #f4f7f6;
+            --cor-branco: #ffffff;
+            --cor-texto: #333;
+            --cor-texto-claro: #555;
+            --cor-borda: #ddd;
+            --sombra-leve: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px; /* Aumentado */
+            background-color: var(--cor-branco);
+            border-radius: 10px; /* Aumentado */
+            box-shadow: var(--sombra-leve);
+            border: 1px solid #eee;
+        }
+        header, footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #fcfcfc;
+            border-bottom: 1px solid var(--cor-borda);
+            border-radius: 10px 10px 0 0;
+            line-height: 1.5;
+        }
+        .header-main {
+            font-size: 1.15em; /* Aumentado */
+            margin-bottom: 10px;
+            color: var(--cor-primaria);
+        }
+        .header-contact {
+            font-size: 0.95em;
+            color: var(--cor-texto-claro);
+        }
+        footer {
+            border-top: 1px solid var(--cor-borda);
+            border-bottom: none;
+            margin-top: 30px; /* Aumentado */
+            font-size: 0.9em;
+            color: #777;
+            border-radius: 0 0 10px 10px;
+        }
+        footer p {
+            margin: 5px 0;
+        }
+        .footer-source, .footer-ethics {
+            font-style: italic;
+            font-size: 0.85em;
+        }
+        .footer-contact {
+            font-weight: 500;
+            font-size: 0.9em;
+        }
+        .footer-copyright {
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--cor-primaria);
+            font-size: 1.9em; /* Aumentado */
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        .source-ref {
+            text-align: center;
+            font-style: italic;
+            font-size: 0.9em;
+            color: var(--cor-texto-claro);
+            margin-bottom: 25px;
+        }
+        .instructions {
+            font-weight: 500; /* Alterado */
+            margin-bottom: 30px;
+            padding: 15px; /* Aumentado */
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #eee;
+            color: var(--cor-primaria);
+        }
+        
+        /* --- Melhoria do Formulário --- */
+        .patient-input {
+            margin-bottom: 25px;
+        }
+        .patient-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--cor-primaria);
+        }
+        .patient-input input {
+            width: 100%;
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid var(--cor-borda);
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .patient-input input:focus {
+            outline: none;
+            border-color: var(--cor-secundaria);
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .question-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .question-list li {
+            margin-bottom: 15px;
+            padding: 20px;
+            border: 1px solid #eee;
+            background-color: var(--cor-branco);
+            border-radius: 8px;
+            transition: box-shadow 0.2s ease-in-out;
+        }
+        .question-list li:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
+        }
+        .question-list p {
+            margin: 0 0 15px 0;
+            font-weight: 500;
+            font-size: 1.05em;
+            color: var(--cor-texto);
+        }
+        
+        /* --- Novo Estilo para Botões de Rádio --- */
+        .question-list .options {
+            display: flex;
+            gap: 10px;
+        }
+        .question-list input[type="radio"] {
+            display: none; /* Esconde o rádio padrão */
+        }
+        .question-list label {
+            flex: 1;
+            text-align: center;
+            padding: 10px 15px;
+            border: 1px solid var(--cor-borda);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+        }
+        .question-list input[type="radio"]:checked + label {
+            background-color: var(--cor-secundaria);
+            border-color: var(--cor-secundaria);
+            color: var(--cor-branco);
+        }
+        .question-list input[type="radio"][value="nao"]:checked + label {
+            background-color: #f1f1f1;
+            border-color: #ccc;
+            color: var(--cor-texto-claro);
+        }
+        .question-list label:hover {
+            background-color: #f9f9f9;
+        }
+        .question-list input[type="radio"]:checked + label:hover {
+            opacity: 0.9;
+        }
+
+        .interpretation {
+            background-color: #eef2f7;
+            padding: 20px;
+            border: 1px solid #c8d4e3;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .interpretation h2 {
+            margin-top: 0;
+            color: var(--cor-primaria);
+        }
+        
+        /* --- Botões de Ação --- */
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 25px;
+        }
+        .action-buttons button {
+            flex: 1;
+            padding: 12px 15px;
+            font-size: 1em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            min-width: 180px;
+        }
+        .action-buttons button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        
+        #btn-json {
+            background-color: var(--cor-secundaria);
+            color: white;
+        }
+        #btn-whatsapp {
+            background-color: var(--cor-sucesso);
+            color: white;
+        }
+        #btn-pdf {
+            background-color: var(--cor-perigo);
+            color: white;
+        }
+        
+        #loading-pdf {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--cor-texto-claro);
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-main">
+            <strong>Psicólogo: Fanuel Candido Glanzmann</strong><br>
+            <strong>CRP:</strong> 05/63951 | <strong>Abordagem:</strong> Terapia Cognitivo-Comportamental (TCC)
+        </div>
+        <div class="header-contact">
+            <strong>📧</strong> psifanuel@gmail.com | <strong>📱</strong> WhatsApp: +55 24 98837-8145
+        </div>
+    </header>
+
+    <div class="container" id="captureArea">
+
+        <h1>Até que ponto você e seu cônjuge levam vidas paralelas?</h1>
+        
+        <p class="source-ref">
+            Baseado em: Gottman, J. (1995). Why Marriages Succeed or Fail: And How You Can Make Yours Last. New York: Simon & Schuster.
+        </p>
+
+        <p class="instructions">
+            → Assinale "sim" ou "não" para cada uma das afirmativas abaixo com base naquilo que
+            você acredita ser verdadeiro para descrever seu relacionamento nos últimos tempos:
+        </p>
+
+        <!-- Campo para nome do paciente -->
+        <div class="patient-input">
+            <label for="patientName">Nome do Paciente (para o arquivo):</label>
+            <input type="text" id="patientName" placeholder="Digite o nome...">
+        </div>
+
+        <form id="vidas-paralelas-form">
+            <ol class="question-list">
+                
+                <li>
+                    <p>1. Não fazemos mais as refeições juntos com a mesma frequência de antes</p>
+                    <div class="options"> <!-- Wrapper para botões -->
+                        <input type="radio" id="q1_sim" name="q1" value="sim"><label for="q1_sim">Sim</label>
+                        <input type="radio" id="q1_nao" name="q1" value="nao"><label for="q1_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>2. Às vezes parecemos colegas de quarto, e não um casal</p>
+                    <div class="options">
+                        <input type="radio" id="q2_sim" name="q2" value="sim"><label for="q2_sim">Sim</label>
+                        <input type="radio" id="q2_nao" name="q2" value="nao"><label for="q2_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>3. Temos menos amigos comuns do que antes</p>
+                    <div class="options">
+                        <input type="radio" id="q3_sim" name="q3" value="sim"><label for="q3_sim">Sim</label>
+                        <input type="radio" id="q3_nao" name="q3" value="nao"><label for="q3_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>4. Ao que parece, fazemos a maior parte das coisas separadamente</p>
+                    <div class="options">
+                        <input type="radio" id="q4_sim" name="q4" value="sim"><label for="q4_sim">Sim</label>
+                        <input type="radio" id="q4_nao" name="q4" value="nao"><label for="q4_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>5. Parece que cada vez temos menos interesses em comum</p>
+                    <div class="options">
+                        <input type="radio" id="q5_sim" name="q5" value="sim"><label for="q5_sim">Sim</label>
+                        <input type="radio" id="q5_nao" name="q5" value="nao"><label for="q5_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>6. Às vezes passamos um longo período sem conversarmos sobre nossas vidas</p>
+                    <div class="options">
+                        <input type="radio" id="q6_sim" name="q6" value="sim"><label for="q6_sim">Sim</label>
+                        <input type="radio" id="q6_nao" name="q6" value="nao"><label for="q6_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>7. Nossas vidas são mais paralelas do que interconectadas</p>
+                    <div class="options">
+                        <input type="radio" id="q7_sim" name="q7" value="sim"><label for="q7_sim">Sim</label>
+                        <input type="radio" id="q7_nao" name="q7" value="nao"><label for="q7_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>8. Não costumamos conversar sobre como foi o nosso dia</p>
+                    <div class="options">
+                        <input type="radio" id="q8_sim" name="q8" value="sim"><label for="q8_sim">Sim</label>
+                        <input type="radio" id="q8_nao" name="q8" value="nao"><label for="q8_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>9. Não passamos mais muito tempo juntos</p>
+                    <div class="options">
+                        <input type="radio" id="q9_sim" name="q9" value="sim"><label for="q9_sim">Sim</label>
+                        <input type="radio" id="q9_nao" name="q9" value="nao"><label for="q9_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>10. Passamos grande parte de nosso tempo livre fazendo coisas diferentes</p>
+                    <div class="options">
+                        <input type="radio" id="q10_sim" name="q10" value="sim"><label for="q10_sim">Sim</label>
+                        <input type="radio" id="q10_nao" name="q10" value="nao"><label for="q10_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>11. Não temos muito tempo para simplesmente conversarmos</p>
+                    <div class="options">
+                        <input type="radio" id="q11_sim" name="q11" value="sim"><label for="q11_sim">Sim</label>
+                        <input type="radio" id="q11_nao" name="q11" value="nao"><label for="q11_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>12. Acho que não nos conhecemos mais</p>
+                    <div class="options">
+                        <input type="radio" id="q12_sim" name="q12" value="sim"><label for="q12_sim">Sim</label>
+                        <input type="radio" id="q12_nao" name="q12" value="nao"><label for="q12_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>13. Não jantamos mais juntos com a mesma freqüência</p>
+                    <div class="options">
+                        <input type="radio" id="q13_sim" name="q13" value="sim"><label for="q13_sim">Sim</label>
+                        <input type="radio" id="q13_nao" name="q13" value="nao"><label for="q13_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>14. Raramente saímos juntos</p>
+                    <div class="options">
+                        <input type="radio" id="q14_sim" name="q14" value="sim"><label for="q14_sim">Sim</label>
+                        <input type="radio" id="q14_nao" name="q14" value="nao"><label for="q14_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>15. Atualmente, grande parte de nosso lazer é com outras pessoas, não com o parceiro</p>
+                    <div class="options">
+                        <input type="radio" id="q15_sim" name="q15" value="sim"><label for="q15_sim">Sim</label>
+                        <input type="radio" id="q15_nao" name="q15" value="nao"><label for="q15_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>16. Somos como dois navios que se cruzam seguindo suas trajetórias individuais</p>
+                    <div class="options">
+                        <input type="radio" id="q16_sim" name="q16" value="sim"><label for="q16_sim">Sim</label>
+                        <input type="radio" id="q16_nao" name="q16" value="nao"><label for="q16_nao">Não</label>
+                    </div>
+                </li>
+
+                <li>
+                    <p>17. Parecemos nos evitar</p>
+                    <div class="options">
+                        <input type="radio" id="q17_sim" name="q17" value="sim"><label for="q17_sim">Sim</label>
+                        <input type="radio" id="q17_nao" name="q17" value="nao"><label for="q17_nao">Não</label>
+                    </div>
+                </li>
+
+            </ol>
+        </form>
+
+        <!-- Botões de Ação -->
+        <div class="action-buttons">
+            <button id="btn-json">Salvar Respostas (JSON)</button>
+            <button id="btn-whatsapp">Enviar via WhatsApp</button>
+            <button id="btn-pdf">Salvar como PDF</button>
+        </div>
+        <div id="loading-pdf">Gerando PDF, por favor aguarde...</div>
+
+
+        <div class="interpretation">
+            <h2>Pontuação / Interpretação</h2>
+            <p>Se você respondeu "sim" a cinco ou mais afirmações, provavelmente você e seu cônjuge estão levando vidas paralelas. Perceber que a situação deteriorou-se a esse ponto constitui o primeiro passo para redescobrir o parceiro.</p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p class="footer-copyright">
+            &copy; 2025 Psifanuel – Todos os direitos reservados
+        </p>
+        <p class="footer-source">
+            Fonte Original: Gottman, J. (1995). Why Marriages Succeed or Fail: And How You Can Make Yours Last. New York: Simon & Schuster.
+        </p>
+        <p class="footer-ethics">
+            Material de uso exclusivo para fins clínicos e educacionais. É vedada a reprodução sem autorização.
+        </p>
+        <p class="footer-contact">
+            📧 psifanuel@gmail.com | 📱 +55 24 98837-8145 | 🌐 psifanuel.com.br
+        </p>
+    </footer>
+
+    <script>
+        // --- Lógica para Coletar e Processar Respostas ---
+
+        /**
+         * Coleta todas as respostas do formulário e calcula a pontuação.
+         * @returns {object} Um objeto com os dados da avaliação.
+         */
+        function getAnswersData() {
+            const form = document.getElementById('vidas-paralelas-form');
+            const questions = form.querySelectorAll('ol.question-list li');
+            const patientName = document.getElementById('patientName').value || 'Paciente_Nao_Identificado';
+            
+            let score = 0;
+            const respostas = [];
+
+            questions.forEach((li, index) => {
+                const questionText = li.querySelector('p').innerText;
+                const questionName = `q${index + 1}`;
+                const checkedInput = form.querySelector(`input[name="${questionName}"]:checked`);
+                const answer = checkedInput ? checkedInput.value : 'não respondido';
+
+                if (answer === 'sim') {
+                    score++;
+                }
+
+                respostas.push({
+                    id: questionName,
+                    texto: questionText,
+                    resposta: answer
+                });
+            });
+
+            const interpretationText = document.querySelector('.interpretation p').innerText;
+
+            return {
+                paciente: patientName,
+                titulo: document.querySelector('h1').innerText,
+                data: new Date().toLocaleString('pt-BR'),
+                respostas: respostas,
+                pontuacao: score,
+                interpretacao: interpretationText
+            };
+        }
+
+        /**
+         * Formata os dados para uma string de texto simples (para WhatsApp).
+         * @param {object} data - O objeto de dados de getAnswersData().
+         * @returns {string} Uma string formatada.
+         */
+        function formatAnswersAsText(data) {
+            let text = `*Avaliação: ${data.titulo}*\n`;
+            text += `*Paciente:* ${data.paciente}\n`;
+            text += `*Data:* ${data.data}\n\n`;
+            text += `*--- Respostas ---*\n`;
+
+            data.respostas.forEach(item => {
+                text += `${item.texto}: *${item.resposta.toUpperCase()}*\n`;
+            });
+
+            text += `\n*--- Resultado ---*\n`;
+            text += `*Pontuação (Total de "Sim"):* ${data.pontuacao}\n`;
+            text += `*Interpretação:* ${data.interpretacao}\n`;
+
+            return text;
+        }
+
+        /**
+         * Limpa o nome do paciente para usar como nome de arquivo.
+         * @param {string} name - O nome do paciente.
+         * @returns {string} O nome limpo.
+         */
+        function sanitizeFilename(name) {
+            return name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        }
+
+        // --- Funções dos Botões ---
+
+        /**
+         * Salva os dados como um arquivo JSON.
+         */
+        function saveAsJSON() {
+            const data = getAnswersData();
+            if (data.respostas.every(r => r.resposta === 'não respondido')) {
+                alert('Por favor, responda pelo menos uma pergunta antes de salvar.');
+                return;
+            }
+            const filename = `respostas_${sanitizeFilename(data.paciente)}.json`;
+            const jsonStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        /**
+         * Envia os dados formatados para o WhatsApp.
+         */
+        function sendToWhatsApp() {
+            const data = getAnswersData();
+            if (data.respostas.every(r => r.resposta === 'não respondido')) {
+                alert('Por favor, responda pelo menos uma pergunta antes de enviar.');
+                return;
+            }
+            const text = formatAnswersAsText(data);
+            const encodedText = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/?text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        /**
+         * Salva a avaliação como um arquivo PDF.
+         */
+        function saveAsPDF() {
+            const data = getAnswersData();
+            if (data.respostas.every(r => r.resposta === 'não respondido')) {
+                alert('Por favor, responda pelo menos uma pergunta antes de salvar como PDF.');
+                return;
+            }
+            
+            const loadingMessage = document.getElementById('loading-pdf');
+            loadingMessage.style.display = 'block';
+            
+            // Usamos as bibliotecas jspdf e html2canvas (importadas no <head>)
+            const { jsPDF } = window.jspdf;
+            const captureElement = document.getElementById('captureArea'); // O .container
+            const filename = `avaliacao_${sanitizeFilename(data.paciente)}.pdf`;
+
+            html2canvas(captureElement, {
+                scale: 2 // Melhora a resolução da imagem
+            }).then((canvas) => {
+                const imgData = canvas.toDataURL('image/png');
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = doc.internal.pageSize.getHeight();
+                
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                
+                // Calcula a proporção para caber na largura do A4
+                const ratio = canvasWidth / pdfWidth;
+                const imgHeight = canvasHeight / ratio;
+
+                // Verifica se a altura da imagem é maior que a página
+                let heightLeft = imgHeight;
+                let position = 0;
+
+                doc.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdfHeight;
+
+                // Adiciona novas páginas se o conteúdo for muito longo
+                while (heightLeft > 0) {
+                    position = heightLeft - imgHeight;
+                    doc.addPage();
+                    doc.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                    heightLeft -= pdfHeight;
+                }
+                
+                doc.save(filename);
+                loadingMessage.style.display = 'none';
+            }).catch(err => {
+                console.error("Erro ao gerar PDF:", err);
+                alert("Ocorreu um erro ao gerar o PDF. Tente novamente.");
+                loadingMessage.style.display = 'none';
+            });
+        }
+
+        // --- Anexar Eventos ---
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('btn-json').addEventListener('click', saveAsJSON);
+            document.getElementById('btn-whatsapp').addEventListener('click', sendToWhatsApp);
+            document.getElementById('btn-pdf').addEventListener('click', saveAsPDF);
+        });
+
+    </script>
+</body>
+</html>
+
+
