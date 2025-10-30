@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Plataforma de Testes Psicológicos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .form-container {
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .hidden-form {
+            opacity: 0;
+            transform: scale(0.95);
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="w-full max-w-md p-8 space-y-8 bg-white rounded-2xl shadow-lg">
+
+        <div>
+            <h2 id="form-title" class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                Acessar minha conta
+            </h2>
+            <p class="mt-2 text-center text-sm text-gray-600">
+                Ou <a href="#" id="toggle-link" class="font-medium text-purple-600 hover:text-purple-500">
+                    crie uma nova conta
+                </a>
+            </p>
+        </div>
+
+        <!-- Formulário de Login -->
+        <form id="login-form" class="mt-8 space-y-6 form-container" action="#" method="POST">
+            <input type="hidden" name="remember" value="true">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="login-email" class="sr-only">E-mail</label>
+                    <input id="login-email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="E-mail">
+                </div>
+                <div>
+                    <label for="login-password" class="sr-only">Senha</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Senha">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    Entrar
+                </button>
+            </div>
+        </form>
+
+        <!-- Formulário de Registro -->
+        <form id="signup-form" class="mt-8 space-y-6 form-container hidden-form" action="#" method="POST">
+            <div class="rounded-md shadow-sm -space-y-px">
+                <div>
+                    <label for="signup-email" class="sr-only">E-mail</label>
+                    <input id="signup-email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="E-mail">
+                </div>
+                <div>
+                    <label for="signup-password" class="sr-only">Senha</label>
+                    <input id="signup-password" name="password" type="password" autocomplete="new-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Senha (mínimo 6 caracteres)">
+                </div>
+                 <div>
+                    <label for="signup-password-confirm" class="sr-only">Confirmar Senha</label>
+                    <input id="signup-password-confirm" name="password-confirm" type="password" autocomplete="new-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" placeholder="Confirme a senha">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    Registrar
+                </button>
+            </div>
+        </form>
+
+        <!-- Mensagens de erro -->
+        <div id="error-message" class="text-red-500 text-sm text-center"></div>
+    </div>
+
+    <script type="module">
+        import { signUp, logIn } from './auth-service.js';
+
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const toggleLink = document.getElementById('toggle-link');
+        const formTitle = document.getElementById('form-title');
+        const errorMessageDiv = document.getElementById('error-message');
+
+        toggleLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            errorMessageDiv.textContent = ''; // Limpa a mensagem de erro ao trocar de formulário
+            const isLoginFormVisible = !loginForm.classList.contains('hidden-form');
+            if (isLoginFormVisible) {
+                loginForm.classList.add('hidden-form');
+                signupForm.classList.remove('hidden-form');
+                formTitle.textContent = 'Crie sua conta';
+                toggleLink.textContent = 'já tenho uma conta';
+            } else {
+                signupForm.classList.add('hidden-form');
+                loginForm.classList.remove('hidden-form');
+                formTitle.textContent = 'Acessar minha conta';
+                toggleLink.textContent = 'crie uma nova conta';
+            }
+        });
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessageDiv.textContent = '';
+            const email = loginForm['login-email'].value;
+            const password = loginForm['login-password'].value;
+
+            try {
+                await logIn(email, password);
+                // Redireciona para a página principal ou de testes após o login
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error("Erro de login:", error.code, error.message);
+                errorMessageDiv.textContent = 'E-mail ou senha inválidos.';
+            }
+        });
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessageDiv.textContent = '';
+            const email = signupForm['signup-email'].value;
+            const password = signupForm['signup-password'].value;
+            const passwordConfirm = signupForm['signup-password-confirm'].value;
+
+            if (password !== passwordConfirm) {
+                errorMessageDiv.textContent = 'As senhas não coincidem.';
+                return;
+            }
+
+            try {
+                await signUp(email, password);
+                alert('Conta criada com sucesso! Faça o login para continuar.');
+                // Alterna para o formulário de login
+                toggleLink.click();
+            } catch (error) {
+                console.error("Erro de registro:", error.code, error.message);
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessageDiv.textContent = 'Este e-mail já está em uso.';
+                } else {
+                    errorMessageDiv.textContent = 'Ocorreu um erro ao criar a conta.';
+                }
+            }
+        });
+    </script>
+</body>
+</html>

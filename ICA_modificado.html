@@ -1,4 +1,9 @@
-
+<!--
+IMPORTANTE: Ao salvar este código em um arquivo .html, certifique-se de que
+a codificação do arquivo seja "UTF-8". No Bloco de Notas (Windows), por exemplo,
+na janela "Salvar como", existe uma opção "Codificação" na parte inferior.
+Selecione "UTF-8" para garantir que os acentos apareçam corretamente.
+-->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -17,7 +22,7 @@
 
     <div class="container mx-auto max-w-4xl my-10 p-8 bg-white rounded-2xl shadow-lg">
         <!-- Cabeçalho -->
-        <header class="text-center p-6 bg-gray-50 rounded-xl mb-8 border border-gray-200">
+        <header class="text-center p-6 bg-gray-50 rounded-xl mb-8 border border-gray-200 relative">
             <h2 class="text-xl font-bold text-gray-700">Psicólogo Responsável: Fanuel Candido Glanzmann – CRP 05/63951</h2>
             <p class="text-gray-600 mt-2"><strong>Abordagem:</strong> Terapia Cognitivo-Comportamental (TCC)</p>
             <p class="text-gray-600"><strong>Serviço:</strong> Avaliação Psicológica / Teste Psicométrico</p>
@@ -28,6 +33,9 @@
                 <span>|</span>
                 <a href="https://wa.me/5524988378145" target="_blank" class="hover:underline">WhatsApp: +55 (24) 98837-8145</a>
             </div>
+            <button id="logout-btn" class="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-md text-sm font-medium hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                Sair
+            </button>
         </header>
 
         <main>
@@ -127,16 +135,32 @@
                 As imagens, registros e dados coletados durante esta avaliação são de uso exclusivo do psicólogo responsável e destinam-se exclusivamente aos fins clínicos e científicos pertinentes à avaliação psicológica.
             </p>
             <p class="text-xs text-gray-500 mt-1 max-w-2xl mx-auto">
-                É vedada a reprodução, divulgação ou compartilhamento parcial ou integral deste material sem autorização expressa do profissional e do avaliado, conforme o Código de Ética Profissional do Psicólogo (Resolução CFP nº 010/2005).
+                É vedada a reprodução, divulgação ou compartilhamento parcial ou integral deste material sem autorização expressa do profissional e do avaliado, conforme o Código de Ét-tica Profissional do Psicólogo (Resolução CFP nº 010/2005).
             </p>
         </footer>
     </div>
 
     <script type="module">
-        // Importa a função de salvamento do nosso serviço
+        // Importa as funções de serviço necessárias
         import { saveTestResult } from './firestore-service.js';
+        import { protectPage, logOut } from './auth-service.js';
+
+        // Protege a página, redirecionando para 'login.html' se o usuário não estiver logado
+        protectPage();
 
         document.addEventListener('DOMContentLoaded', function() {
+            const logoutBtn = document.getElementById('logout-btn');
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    await logOut();
+                    alert('Você foi desconectado com sucesso.');
+                    window.location.href = 'login.html';
+                } catch (error) {
+                    console.error('Erro ao fazer logout:', error);
+                    alert('Não foi possível sair. Tente novamente.');
+                }
+            });
+
             const questions = [
                 { text: "Gira ou girava em torno de si por longos períodos de tempo.", domain: "ES" },
                 { text: "Aprende tarefas, mas esquece com facilidade.", domain: "CO" },
