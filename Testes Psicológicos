@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testes Psicológicos | Fanuel Glanzmann</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <style>
+    :root {
+      --cream: #f5f0e8;
+      --warm-white: #faf8f3;
+      --terra: #8b5e3c;
+      --terra-light: #c4956a;
+      --terra-dark: #5c3a1e;
+      --sage: #7a9e7e;
+      --sage-light: #b8d4ba;
+      --sage-dark: #4a6b4e;
+      --charcoal: #2d2926;
+      --charcoal-mid: #5a5450;
+      --gold: #c9a84c;
+      --shadow: rgba(45, 41, 38, 0.12);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--warm-white);
+      color: var(--charcoal);
+      overflow-x: hidden;
+    }
+
+    /* ── NAVEGAÇÃO ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(250, 248, 243, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(139, 94, 60, 0.12);
+      box-shadow: 0 4px 24px var(--shadow);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--terra-dark);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--terra); font-style: italic; }
+    .nav-links { display: flex; gap: 2rem; align-items: center; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem; font-weight: 500; color: var(--charcoal-mid);
+      text-decoration: none; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--terra); }
+    .btn-nav {
+      background: var(--terra); color: white !important;
+      padding: 0.5rem 1.3rem; border-radius: 40px; transition: background 0.2s !important;
+    }
+    .btn-nav:hover { background: var(--terra-dark) !important; }
+
+    /* ── CABEÇALHO DA PÁGINA ── */
+    .page-header {
+      padding: 8rem 4rem 3rem;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--warm-white) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: 'ψ';
+      position: absolute; right: 6rem; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 14rem; font-style: italic;
+      color: rgba(139, 94, 60, 0.06);
+      line-height: 1; pointer-events: none;
+    }
+    .page-header-inner { max-width: 700px; }
+    .page-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--sage-light); color: var(--sage-dark);
+      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em;
+      text-transform: uppercase; padding: 0.35rem 1rem;
+      border-radius: 40px; margin-bottom: 1.5rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15; color: var(--charcoal); margin-bottom: 1rem;
+    }
+    .page-header h1 em { font-style: italic; color: var(--terra); }
+    .page-header p {
+      font-size: 1.05rem; color: var(--charcoal-mid);
+      line-height: 1.7; font-weight: 300; max-width: 580px;
+    }
+
+    /* ── AVISO CLÍNICO ── */
+    .aviso-clinico {
+      background: rgba(139, 94, 60, 0.06);
+      border-left: 4px solid var(--terra-light);
+      padding: 1.2rem 2rem;
+      margin: 0 4rem;
+      border-radius: 0 12px 12px 0;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .aviso-clinico .aviso-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .aviso-clinico p { font-size: 0.88rem; color: var(--charcoal-mid); line-height: 1.6; }
+    .aviso-clinico strong { color: var(--terra-dark); }
+
+    /* ── CATEGORIAS DE FILTRAGEM ── */
+    .categorias-section { padding: 3rem 4rem; }
+    .cat-tabs {
+      display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 3rem;
+    }
+    .cat-tab {
+      display: flex; align-items: center; gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: white;
+      border: 1.5px solid rgba(139, 94, 60, 0.15);
+      border-radius: 40px;
+      font-size: 0.85rem; font-weight: 500;
+      color: var(--charcoal-mid);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .cat-tab:hover, .cat-tab.active {
+      background: var(--terra); color: white;
+      border-color: var(--terra);
+      box-shadow: 0 4px 16px rgba(139, 94, 60, 0.25);
+    }
+
+    /* ── CARDS DE TESTES ── */
+    .testes-lista { display: none; }
+    .testes-lista.visible { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+
+    .teste-card {
+      background: white;
+      border-radius: 18px;
+      padding: 1.8rem;
+      border: 1.5px solid rgba(139, 94, 60, 0.1);
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .teste-card:hover {
+      border-color: var(--terra-light);
+      box-shadow: 0 16px 40px var(--shadow);
+      transform: translateY(-4px);
+    }
+    .teste-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--terra), var(--terra-light));
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .teste-card:hover::before { opacity: 1; }
+
+    .teste-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .teste-card-cat {
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--terra); font-weight: 500; margin-bottom: 0.5rem;
+    }
+    .teste-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--charcoal); margin-bottom: 0.5rem; }
+    .teste-card p { font-size: 0.83rem; color: var(--charcoal-mid); line-height: 1.6; font-weight: 300; margin-bottom: 1.2rem; }
+    .teste-card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1rem; border-top: 1px solid var(--cream);
+    }
+    .teste-card-time { font-size: 0.75rem; color: var(--charcoal-mid); }
+    .btn-iniciar {
+      background: var(--cream); color: var(--terra-dark);
+      border: 1.5px solid rgba(139, 94, 60, 0.2);
+      padding: 0.4rem 1rem; border-radius: 30px;
+      font-size: 0.8rem; font-weight: 500; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-iniciar:hover { background: var(--terra); color: white; border-color: var(--terra); }
+
+    /* ── MODAL DE TESTE ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: rgba(45, 41, 38, 0.7);
+      backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 24px;
+      max-width: 680px; width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.9) translateY(20px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-header {
+      padding: 2rem 2rem 1.5rem;
+      border-bottom: 1px solid var(--cream);
+      position: sticky; top: 0; background: white; z-index: 1;
+      border-radius: 24px 24px 0 0;
+    }
+    .modal-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      background: var(--cream); border: none; border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem; transition: all 0.2s;
+    }
+    .modal-close:hover { background: var(--terra); color: white; }
+
+    .modal-body { padding: 2rem; }
+
+    /* FASES DE EXECUÇÃO */
+    .fase { display: none; }
+    .fase.active { display: block; }
+
+    /* FASE 0: FORMULÁRIO DE IDENTIFICAÇÃO */
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--charcoal); margin-bottom: 0.4rem;
+    }
+    .form-sub { font-size: 0.88rem; color: var(--charcoal-mid); margin-bottom: 1.8rem; line-height: 1.6; }
+
+    .form-field { margin-bottom: 1.2rem; }
+    .form-field label {
+      display: block; font-size: 0.83rem; font-weight: 500;
+      color: var(--charcoal); margin-bottom: 0.4rem;
+      letter-spacing: 0.02em;
+    }
+    .form-field input, .form-field select {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid rgba(139, 94, 60, 0.2);
+      border-radius: 10px; font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem; color: var(--charcoal);
+      background: var(--warm-white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-field input:focus, .form-field select:focus {
+      border-color: var(--terra); background: white;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* FASE 1: PERGUNTAS */
+    .progress-bar {
+      height: 5px; background: var(--cream); border-radius: 99px;
+      margin-bottom: 2rem; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--terra), var(--terra-light));
+      border-radius: 99px; transition: width 0.4s ease;
+    }
+    .progress-label {
+      font-size: 0.78rem; color: var(--charcoal-mid); text-align: right;
+      margin-top: 0.4rem; margin-bottom: 1.5rem;
+    }
+
+    .questao-num {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--terra); font-weight: 500; margin-bottom: 0.6rem;
+    }
+    .questao-texto {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--charcoal); line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+
+    .opcoes { display: flex; flex-direction: column; gap: 0.6rem; }
+    .opcao-btn {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.9rem 1.2rem;
+      background: var(--warm-white);
+      border: 1.5px solid rgba(139, 94, 60, 0.12);
+      border-radius: 12px;
+      cursor: pointer; font-family: 'DM Sans', sans-serif;
+      font-size: 0.93rem; color: var(--charcoal);
+      text-align: left; transition: all 0.2s; width: 100%;
+    }
+    .opcao-btn:hover { border-color: var(--terra-light); background: rgba(139, 94, 60, 0.04); }
+    .opcao-btn.selected { border-color: var(--terra); background: rgba(139, 94, 60, 0.06); color: var(--terra-dark); font-weight: 500; }
+    .opcao-bullet {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: white; border: 1.5px solid rgba(139, 94, 60, 0.2);
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; transition: all 0.2s;
+    }
+    .opcao-btn.selected .opcao-bullet {
+      background: var(--terra); border-color: var(--terra); color: white;
+    }
+
+    /* FASE 2: APRESENTAÇÃO DO RESULTADO */
+    .resultado-box {
+      text-align: center;
+      padding: 1rem 0 0.5rem;
+    }
+    .resultado-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .resultado-nivel {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .resultado-score {
+      font-size: 0.85rem; color: var(--charcoal-mid); margin-bottom: 1.5rem;
+    }
+    .resultado-texto {
+      background: var(--cream);
+      border-radius: 14px;
+      padding: 1.4rem;
+      font-size: 0.93rem; color: var(--charcoal-mid);
+      line-height: 1.7; font-weight: 300;
+      text-align: left; margin-bottom: 1.5rem;
+    }
+    .cta-profissional {
+      background: var(--charcoal);
+      color: white;
+      border-radius: 16px;
+      padding: 1.6rem;
+      text-align: left; margin-bottom: 1.5rem;
+    }
+    .cta-profissional h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; margin-bottom: 0.5rem;
+    }
+    .cta-profissional p { font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 1rem; }
+    .btn-whatsapp-resultado {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #25D366; color: white;
+      padding: 0.7rem 1.4rem; border-radius: 40px;
+      font-size: 0.9rem; font-weight: 500; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-whatsapp-resultado:hover { background: #1da851; transform: translateY(-1px); }
+
+    .email-status {
+      font-size: 0.78rem; color: var(--charcoal-mid);
+      text-align: center; margin-top: 1rem;
+      min-height: 1.2rem;
+    }
+
+    /* BOTÕES DE NAVEGAÇÃO INTERNA */
+    .modal-footer {
+      padding: 1.2rem 2rem;
+      border-top: 1px solid var(--cream);
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; bottom: 0; background: white;
+      border-radius: 0 0 24px 24px;
+    }
+    .btn-action {
+      padding: 0.75rem 1.8rem;
+      border-radius: 40px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; font-weight: 500;
+      cursor: pointer; transition: all 0.2s; border: none;
+    }
+    .btn-back { background: var(--cream); color: var(--charcoal-mid); }
+    .btn-back:hover { background: #e8e0d4; }
+    .btn-next { background: var(--terra); color: white; box-shadow: 0 4px 16px rgba(139,94,60,0.3); }
+    .btn-next:hover { background: var(--terra-dark); transform: translateY(-1px); }
+    .btn-next:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; transform: none; }
+
+    /* FLUTUANTE WHATSAPP */
+    .whatsapp-float {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+      background: #25D366; color: white;
+      width: 58px; height: 58px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; box-shadow: 0 6px 24px rgba(37,211,102,0.4);
+      text-decoration: none; transition: all 0.25s;
+    }
+    .whatsapp-float:hover { transform: scale(1.1); }
+
+    /* NOTIFICAÇÕES (TOAST) */
+    .toast {
+      position: fixed; top: 5rem; right: 2rem; z-index: 999;
+      background: var(--charcoal); color: white;
+      padding: 1rem 1.4rem; border-radius: 12px;
+      font-size: 0.88rem; box-shadow: 0 8px 24px var(--shadow);
+      transform: translateX(120%); transition: transform 0.3s;
+      max-width: 300px;
+    }
+    .toast.show { transform: translateX(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1rem; }
+      .page-header, .categorias-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .aviso-clinico { margin: 0 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Fanuel <span>Glanzmann</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Início</a></li>
+      <li><a href="index.html#sobre">Sobre</a></li>
+      <li><a href="index.html#servicos">Serviços</a></li>
+      <li><a href="#" class="active">Testes</a></li>
+      <li><a href="index.html#contato" class="btn-nav">Contato</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <div class="page-badge">🧪 Instrumentos Psicológicos</div>
+      <h1>Testes e <em>avaliações</em><br/>psicológicas</h1>
+      <p>Instrumentos técnicos para triagem e rastreio. Os resultados serão analisados pelo psicólogo responsável, que entrará em contato após a aplicação.</p>
+    </div>
+  </div>
+
+  <div class="aviso-clinico">
+    <div class="aviso-icon">⚠️</div>
+    <p><strong>Importante:</strong> Estes instrumentos têm a finalidade de <strong>triagem e rastreio inicial</strong>. Não substituem uma avaliação psicológica completa. Os resultados serão avaliados pelo psicólogo <strong>Fanuel Glanzmann (CRP 05/63951)</strong>, que entrará em contato para dar as devidas orientações. Dúvidas? <a href="https://wa.me/5524988378145" style="color: var(--terra);">Fale conosco pelo WhatsApp</a>.</p>
+  </div>
+
+  <section class="categorias-section">
+    <!-- TABS DE CATEGORIAS -->
+    <div class="cat-tabs">
+      <button class="cat-tab active" onclick="filtrar('todos', event)">🗂 Todos os testes</button>
+      <button class="cat-tab" onclick="filtrar('ansiedade', event)">😰 Ansiedade</button>
+      <button class="cat-tab" onclick="filtrar('depressao', event)">💙 Depressão</button>
+      <button class="cat-tab" onclick="filtrar('atencao', event)">🎯 Atenção / Cognitivo</button>
+      <button class="cat-tab" onclick="filtrar('personalidade', event)">🌀 Personalidade</button>
+      <button class="cat-tab" onclick="filtrar('neuro', event)">🧠 Neuropsicológico</button>
+    </div>
+
+    <!-- LISTA DE TESTES (Gerada Dinamicamente pelo Javascript) -->
+    <div class="testes-lista visible" id="lista-todos"></div>
+  </section>
+
+  <!-- MODAL DE TESTE -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <div id="modal-categoria" style="font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--terra);font-weight:500;margin-bottom:0.3rem;"></div>
+        <div id="modal-titulo" style="font-family:'Playfair Display',serif;font-size:1.2rem;color:var(--charcoal);padding-right:2rem;"></div>
+        <button class="modal-close" onclick="fecharModal()" aria-label="Fechar Janela">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- FASE 0: IDENTIFICAÇÃO -->
+        <div class="fase active" id="fase-0">
+          <div class="form-title">Antes de começar</div>
+          <div class="form-sub">Por favor, preencha seus dados básicos. Essas informações serão tratadas com total sigilo e enviadas ao psicólogo Fanuel Glanzmann.</div>
+          
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-nome">Nome completo *</label>
+              <input type="text" id="f-nome" placeholder="Escreva o seu nome" />
+            </div>
+            <div class="form-field">
+              <label for="f-idade">Idade *</label>
+              <input type="number" id="f-idade" placeholder="Ex: 32" min="5" max="120" />
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-field">
+              <label for="f-telefone">WhatsApp / Telefone</label>
+              <input type="text" id="f-telefone" placeholder="(00) 00000-0000" />
+            </div>
+            <div class="form-field">
+              <label for="f-email">E-mail</label>
+              <input type="email" id="f-email" placeholder="exemplo@email.com" />
+            </div>
+          </div>
+          
+          <div class="form-field">
+            <label for="f-motivo">Motivo / O que te trouxe aqui?</label>
+            <input type="text" id="f-motivo" placeholder="Breve descrição ou queixa principal (opcional)" />
+          </div>
+        </div>
+
+        <!-- FASE 1: PERGUNTAS -->
+        <div class="fase" id="fase-1">
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressbar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <div class="progress-label" id="progress-label"></div>
+          <div id="questao-container" role="radiogroup"></div>
+        </div>
+
+        <!-- FASE 2: RESULTADO -->
+        <div class="fase" id="fase-2">
+          <div class="resultado-box" id="resultado-box" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-action btn-back" id="btn-back" onclick="voltarFase()">← Voltar</button>
+        <button class="btn-action btn-next" id="btn-next" onclick="avancarFase()">Continuar →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" aria-live="polite"></div>
+  <a href="https://wa.me/5524988378145" target="_blank" class="whatsapp-float" title="Falar no WhatsApp">💬</a>
+
+  <script>
+    // ══════════════════════════════════════════════════════
+    // CONFIGURAÇÃO EMAILJS
+    // ══════════════════════════════════════════════════════
+    const EMAILJS_CONFIG = {
+      publicKey: 'SUA_PUBLIC_KEY',       // Account > API Keys (Substitua quando em produção)
+      serviceId: 'service_xk6z5k5',       // Seu ID de Serviço Ativo!
+      templateId: 'SUA_TEMPLATE_ID'      // Email Templates (Substitua quando em produção)
+    };
+
+    // Inicialização segura do EmailJS caso tenha inserido uma Chave Pública válida
+    if (EMAILJS_CONFIG.publicKey && EMAILJS_CONFIG.publicKey !== 'SUA_PUBLIC_KEY') {
+      emailjs.init(EMAILJS_CONFIG.publicKey);
+    }
+
+    // ══════════════════════════════════════════════════════
+    // BANCO DE DADOS DE TESTES (PT-BR)
+    // ══════════════════════════════════════════════════════
+    const TESTES = {
+      gad7: {
+        titulo: 'GAD-7 — Escala de Ansiedade Generalizada',
+        categoria: 'Ansiedade',
+        categoriaId: 'ansiedade',
+        icone: '😰',
+        tempo: '⏱ ~3 minutos',
+        descricao: 'Triagem de ansiedade generalizada com 7 itens. Amplamente utilizado em contextos clínicos e de pesquisa científica.',
+        instrucao: 'Nas últimas 2 semanas, com que frequência você foi incomodado(a) pelos seguintes problemas?',
+        opcoes: [
+          { label: 'Nunca', valor: 0 },
+          { label: 'Vários dias', valor: 1 },
+          { label: 'Mais da metade dos dias', valor: 2 },
+          { label: 'Quase todos os dias', valor: 3 }
+        ],
+        questoes: [
+          'Sentir-se nervoso(a), ansioso(a) ou muito tenso(a)',
+          'Não conseguir parar ou controlar as preocupações',
+          'Preocupar-se muito com diversas coisas',
+          'Dificuldade para relaxar',
+          'Ficar tão agitado(a) que se torna difícil permanecer sentado(a)',
+          'Sentir-se facilmente irritado(a) ou irritável',
+          'Ter medo de que algo terrível possa acontecer'
+        ],
+        interpretar: (score) => {
+          if (score <= 4) return { nivel: 'Ansiedade Mínima', icone: '🟢', cor: '#4CAF50', texto: 'Seus resultados indicam níveis mínimos de ansiedade. Isso é um bom sinal! Acompanhamento preventivo e estratégias de bem-estar podem ajudar a manter esse estado.' };
+          if (score <= 9) return { nivel: 'Ansiedade Leve', icone: '🟡', cor: '#FFC107', texto: 'Há sinais de ansiedade leve. Esses sintomas podem afetar sua qualidade de vida. Uma conversa com o psicólogo pode ajudar a identificar os gatilhos e desenvolver estratégias eficazes.' };
+          if (score <= 14) return { nivel: 'Ansiedade Moderada', icone: '🟠', cor: '#FF9800', texto: 'Os resultados apontam ansiedade em nível moderado. É recomendável buscar avaliação profissional. Intervenções psicológicas são muito eficazes nesse nível.' };
+          return { nivel: 'Ansiedade Grave', icone: '🔴', cor: '#F44336', texto: 'Seus resultados indicam ansiedade em nível elevado. É importante buscar apoio profissional em breve. Com o acompanhamento adequado, há excelente resposta ao tratamento.' };
+        }
+      },
+      phq9: {
+        titulo: 'PHQ-9 — Rastreio de Depressão',
+        categoria: 'Depressão',
+        categoriaId: 'depressao',
+        icone: '💙',
+        tempo: '⏱ ~4 minutos',
+        descricao: 'Rastreio de episódio depressivo maior, amplamente validado em diferentes contextos clínicos e de saúde.',
+        instrucao: 'Nas últimas 2 semanas, com que frequência você foi incomodado(a) por estes problemas?',
+        opcoes: [
+          { label: 'Nunca', valor: 0 },
+          { label: 'Vários dias', valor: 1 },
+          { label: 'Mais da metade dos dias', valor: 2 },
+          { label: 'Quase todos os dias', valor: 3 }
+        ],
+        questoes: [
+          'Pouco interesse ou prazer em fazer as coisas',
+          'Sentir-se para baixo, deprimido(a) ou sem esperança',
+          'Dificuldade para adormecer, permanecer dormindo ou dormir demais',
+          'Sentir-se cansado(a) ou com pouca energia',
+          'Pouco apetite ou comer em excesso',
+          'Sentir-se mal consigo mesmo(a), achar que é um fracasso ou que decepcionou a si mesmo(a) ou sua família',
+          'Dificuldade de concentrar-se nas coisas, como ler o jornal ou assistir televisão',
+          'Mover-se ou falar tão devagar que outras pessoas poderiam notar? Ou o oposto — ficar tão agitado(a) que você fica andando de um lado para outro muito mais do que de costume',
+          'Pensar em se machucar de alguma forma ou que seria melhor estar morto(a)'
+        ],
+        interpretar: (score) => {
+          if (score <= 4) return { nivel: 'Sem Depressão Significativa', icone: '🟢', cor: '#4CAF50', texto: 'Seus resultados não indicam presença de episódio depressivo significativo. Mantenha hábitos de autocuidado e bem-estar.' };
+          if (score <= 9) return { nivel: 'Depressão Leve', icone: '🟡', cor: '#FFC107', texto: 'Há sinais de depressão leve. Sintomas de humor, energia e sono merecem atenção. Uma conversa com o psicólogo pode ser muito útil para avaliar e prevenir progressão.' };
+          if (score <= 14) return { nivel: 'Depressão Moderada', icone: '🟠', cor: '#FF9800', texto: 'Atenção: os resultados indicam depressão moderada. É importante buscar avaliação profissional. O tratamento psicológico apresenta excelentes resultados.' };
+          if (score <= 19) return { nivel: 'Depressão Moderadamente Grave', icone: '🔴', cor: '#F44336', texto: 'Os sintomas indicam depressão em nível elevado. Por favor, entre em contato o quanto antes. Apoio profissional é fundamental e há boas perspectivas com o tratamento adequado.' };
+          return { nivel: 'Depressão Grave', icone: '🆘', cor: '#B71C1C', texto: 'Resultados indicam depressão grave. Busque apoio profissional com urgência. Não enfrente isso sozinho(a). O psicólogo Fanuel está disponível para te ajudar.' };
+        }
+      },
+      atencao: {
+        titulo: 'Triagem de Atenção e Funções Executivas',
+        categoria: 'Atenção / Cognitivo',
+        categoriaId: 'atencao',
+        icone: '🎯',
+        tempo: '⏱ ~5 minutos',
+        descricao: 'Questionário de autorrelato sobre dificuldades de atenção, concentração, impulsividade e planejamento diário.',
+        instrucao: 'Com que frequência as situações abaixo acontecem com você?',
+        opcoes: [
+          { label: 'Nunca ou raramente', valor: 0 },
+          { label: 'Às vezes', valor: 1 },
+          { label: 'Frequentemente', valor: 2 },
+          { label: 'Quase sempre', valor: 3 }
+        ],
+        questoes: [
+          'Tenho dificuldade em manter a atenção em tarefas longas ou menos interessantes',
+          'Começo tarefas mas não consigo terminar',
+          'Perco coisas com frequência (chaves, documentos, pertences)',
+          'Ajo impulsivamente, sem pensar nas consequências',
+          'Tenho dificuldade para me organizar e planejar atividades',
+          'Me distraio facilmente com estímulos do ambiente',
+          'Esqueço compromissos ou obrigações do dia a dia',
+          'Tenho dificuldade em esperar minha vez ou me sinto impaciente',
+          'Começo várias coisas ao mesmo tempo sem concluir nenhuma',
+          'Sinto que minha mente "dispara" ou que tenho muitos pensamentos ao mesmo tempo'
+        ],
+        interpretar: (score) => {
+          if (score <= 7) return { nivel: 'Sem Indicadores Significativos', icone: '🟢', cor: '#4CAF50', texto: 'Seus resultados não indicam dificuldades significativas de atenção ou funções executivas no momento.' };
+          if (score <= 14) return { nivel: 'Indicadores Leves', icone: '🟡', cor: '#FFC107', texto: 'Há alguns indicadores de dificuldade atencional. Pode ser útil conversar com o psicólogo para investigar melhor e, se necessário, desenvolver estratégias de organização e foco.' };
+          if (score <= 20) return { nivel: 'Indicadores Moderados', icone: '🟠', cor: '#FF9800', texto: 'Os resultados indicam dificuldades moderadas de atenção e funções executivas. Uma avaliação neuropsicológica completa pode trazer clareza e orientações específicas para o seu caso.' };
+          return { nivel: 'Indicadores Elevados', icone: '🔴', cor: '#F44336', texto: 'Seus resultados apontam dificuldades importantes nas funções atencionais. Uma avaliação completa é recomendada para investigar causas e definir o suporte adequado.' };
+        }
+      },
+      estresse: {
+        titulo: 'PSS-10 — Escala de Percepção de Estresse',
+        categoria: 'Neuropsicológico',
+        categoriaId: 'neuro',
+        icone: '🧠',
+        tempo: '⏱ ~4 minutos',
+        descricao: 'Avalia a percepção subjetiva do estresse na última semana, identificando situações de sobrecarga psicológica.',
+        instrucao: 'Nas últimas 4 semanas, com que frequência você...',
+        opcoes: [
+          { label: 'Nunca', valor: 0 },
+          { label: 'Quase nunca', valor: 1 },
+          { label: 'Às vezes', valor: 2 },
+          { label: 'Frequentemente', valor: 3 },
+          { label: 'Quase sempre', valor: 4 }
+        ],
+        questoes: [
+          'Se sentiu perturbado(a) por causa de algo que aconteceu inesperadamente?',
+          'Sentiu que não conseguia controlar as coisas importantes da sua vida?',
+          'Sentiu-se nervoso(a) e estressado(a)?',
+          'Sentiu-se confiante para lidar com seus problemas pessoais? (invertido)',
+          'Sentiu que as coisas estavam indo à sua maneira? (invertido)',
+          'Achou que não conseguiria dar conta de todas as coisas que tinha que fazer?',
+          'Conseguiu controlar as irritações da sua vida? (invertido)',
+          'Sentiu que estava dominando as situações? (invertido)',
+          'Ficou com raiva por causa de coisas que estavam fora do seu controle?',
+          'Sentiu que as dificuldades se acumulavam a ponto de você não conseguir superá-las?'
+        ],
+        invertidos: [3, 4, 6, 7],
+        interpretar: (score) => {
+          if (score <= 13) return { nivel: 'Estresse Baixo', icone: '🟢', cor: '#4CAF50', texto: 'Seus resultados indicam níveis baixos de estresse percebido. Continue com estratégias de autocuidado e bem-estar.' };
+          if (score <= 26) return { nivel: 'Estresse Moderado', icone: '🟡', cor: '#FFC107', texto: 'Há percepção moderada de estresse. É recomendável atenção ao equilíbrio entre demandas e recursos pessoais. O psicólogo pode ajudar a desenvolver estratégias de regulação.' };
+          return { nivel: 'Estresse Elevado', icone: '🔴', cor: '#F44336', texto: 'Resultados indicam estresse elevado. Esse nível de sobrecarga merece atenção profissional. Intervenções psicológicas são muito eficazes na regulação do estresse.' };
+        }
+      },
+      bem_estar: {
+        titulo: 'Triagem de Bem-Estar Psicológico',
+        categoria: 'Personalidade / Bem-Estar',
+        categoriaId: 'personalidade',
+        icone: '🌀',
+        tempo: '⏱ ~5 minutos',
+        descricao: 'Avaliação multidimensional de bem-estar subjetivo, engajamento, relacionamentos, significado e realizações.',
+        instrucao: 'Pensando em sua vida de forma geral, indique seu nível de ocorrância com cada afirmação:',
+        opcoes: [
+          { label: 'Discordo totalmente', valor: 1 },
+          { label: 'Discordo parcialmente', valor: 2 },
+          { label: 'Neutro', valor: 3 },
+          { label: 'Concordo parcialmente', valor: 4 },
+          { label: 'Concordo totalmente', valor: 5 }
+        ],
+        questoes: [
+          'Sinto-me satisfeito(a) com quem eu sou',
+          'Tenho relações próximas e de confiança com outras pessoas',
+          'Sinto que minha vida tem propósito e significado',
+          'Consigo lidar bem com as responsabilidades do dia a dia',
+          'Continuo crescendo e me desenvolvendo como pessoa',
+          'Sinto que tenho autonomia nas minhas escolhas de vida',
+          'Experimento mais emoções positivas do que negativas no cotidiano',
+          'Tenho metas e objetivos claros que me motivam',
+          'Sinto que sou aceito(a) pelos outros e que faço parte de algo',
+          'Consigo encontrar equilíbrio entre minhas necessidades e as de outras pessoas'
+        ],
+        interpretar: (score) => {
+          if (score <= 25) return { nivel: 'Bem-Estar Comprometido', icone: '🔴', cor: '#F44336', texto: 'Seus resultados indicam que várias dimensões do bem-estar psicológico podem estar comprometidas. Uma avaliação e acompanhamento profissional podem fazer grande diferença.' };
+          if (score <= 35) return { nivel: 'Bem-Estar Moderado', icone: '🟡', cor: '#FFC107', texto: 'Há áreas do seu bem-estar que merecem mais atenção. Identificar quais dimensões estão mais fragilizadas pode ajudar a direcionar o trabalho psicológico.' };
+          if (score <= 45) return { nivel: 'Bom Bem-Estar', icone: '🟢', cor: '#4CAF50', texto: 'Seus resultados indicam um bom nível de bem-estar psicológico. Há espaço para crescimento em algumas áreas, e o acompanhamento pode potencializar ainda mais seu florescimento.' };
+          return { nivel: 'Excelente Bem-Estar', icone: '🌟', cor: '#8BC34A', texto: 'Resultados muito positivos! Você apresenta alto nível de bem-estar em múltiplas dimensões. Continue cultivando seus recursos pessoais e relacionamentos.' };
+        }
+      }
+    };
+
+    // ══════════════════════════════════════════════════════
+    // ESTADO DA APLICAÇÃO
+    // ══════════════════════════════════════════════════════
+    let testeAtual = null;
+    let faseAtual = 0;
+    let questaoAtual = 0;
+    let respostas = [];
+    let dadosAvaliado = {};
+
+    // ══════════════════════════════════════════════════════
+    // GERADOR DINÂMICO DE CARDS VISUAIS
+    // ══════════════════════════════════════════════════════
+    function renderizarCards() {
+      const container = document.getElementById('lista-todos');
+      container.innerHTML = ''; // Limpa antes de gerar
+
+      for (const id in TESTES) {
+        const t = TESTES[id];
+        const numQuestoes = t.questoes.length;
+
+        container.innerHTML += `
+          <div class="teste-card" data-cat="${t.categoriaId}" onclick="abrirTeste('${id}')">
+            <div class="teste-card-icon">${t.icone}</div>
+            <div class="teste-card-cat">${t.categoria}</div>
+            <h3>${t.titulo}</h3>
+            <p>${t.descricao}</p>
+            <div class="teste-card-footer">
+              <span class="teste-card-time">${t.tempo} · ${numQuestoes} questões</span>
+              <button class="btn-iniciar" onclick="event.stopPropagation(); abrirTeste('${id}')">Iniciar →</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // MECANISMO DE FILTRAGEM DE CATEGORIAS
+    // ══════════════════════════════════════════════════════
+    function filtrar(cat, event) {
+      if (event) {
+        document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+      }
+
+      document.querySelectorAll('.teste-card').forEach(card => {
+        if (cat === 'todos' || card.dataset.cat === cat) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Inicialização da página
+    document.addEventListener('DOMContentLoaded', () => {
+      renderizarCards(); // Desenha os cards salvos no banco de dados javascript
+
+      // MÁSCARA DINÂMICA DE CONTATO TELEFÔNICO (BR)
+      const telInput = document.getElementById('f-telefone');
+      if (telInput) {
+        telInput.addEventListener('input', (e) => {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length > 11) value = value.slice(0, 11);
+          
+          if (value.length > 6) {
+            e.target.value = `(${value.slice(0, 2)}) ${value.slice(2, 7)}-${value.slice(7)}`;
+          } else if (value.length > 2) {
+            e.target.value = `(${value.slice(0, 2)}) ${value.slice(2)}`;
+          } else if (value.length > 0) {
+            e.target.value = `(${value}`;
+          } else {
+            e.target.value = '';
+          }
+        });
+      }
+    });
+
+    // ══════════════════════════════════════════════════════
+    // CONTROLE DO MODAL DE TESTE
+    // ══════════════════════════════════════════════════════
+    function abrirTeste(id) {
+      testeAtual = TESTES[id];
+      faseAtual = 0;
+      questaoAtual = 0;
+      respostas = [];
+
+      document.getElementById('modal-categoria').textContent = testeAtual.categoria;
+      document.getElementById('modal-titulo').textContent = testeAtual.titulo;
+
+      // Recuperar dados guardados previamente para melhorar a fluidez (UX)
+      document.getElementById('f-nome').value = localStorage.getItem('psi_nome') || '';
+      document.getElementById('f-idade').value = localStorage.getItem('psi_idade') || '';
+      document.getElementById('f-telefone').value = localStorage.getItem('psi_telefone') || '';
+      document.getElementById('f-email').value = localStorage.getItem('psi_email') || '';
+      document.getElementById('f-motivo').value = ''; 
+
+      mostrarFase(0);
+      document.getElementById('modalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal() {
+      if (faseAtual === 1) {
+        mostrarToast('Por favor, finalize o teste ou utilize o botão de "Voltar" para cancelar.');
+        return;
+      }
+      document.getElementById('modalOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function mostrarFase(fase) {
+      faseAtual = fase;
+      document.querySelectorAll('.fase').forEach(f => f.classList.remove('active'));
+      document.getElementById('fase-' + fase).classList.add('active');
+
+      const btnBack = document.getElementById('btn-back');
+      const btnNext = document.getElementById('btn-next');
+
+      if (fase === 0) {
+        btnBack.style.visibility = 'hidden';
+        btnNext.textContent = 'Começar o teste →';
+        btnNext.disabled = false;
+      } else if (fase === 1) {
+        btnBack.style.visibility = 'visible';
+        renderQuestao();
+      } else if (fase === 2) {
+        btnBack.style.visibility = 'hidden';
+        btnNext.textContent = '🔄 Refazer teste';
+        btnNext.disabled = false;
+      }
+    }
+
+    function avancarFase() {
+      if (faseAtual === 0) {
+        const nome = document.getElementById('f-nome').value.trim();
+        const idade = document.getElementById('f-idade').value.trim();
+        const telefone = document.getElementById('f-telefone').value.trim();
+        const email = document.getElementById('f-email').value.trim();
+        const motivo = document.getElementById('f-motivo').value.trim();
+
+        if (!nome || !idade) { 
+          mostrarToast('Por favor, preencha nome e idade.'); 
+          return; 
+        }
+
+        // Armazenar localmente para evitar dupla digitação futura
+        localStorage.setItem('psi_nome', nome);
+        localStorage.setItem('psi_idade', idade);
+        localStorage.setItem('psi_telefone', telefone);
+        localStorage.setItem('psi_email', email);
+
+        dadosAvaliado = { nome, idade, telefone, email, motivo };
+        questaoAtual = 0;
+        respostas = new Array(testeAtual.questoes.length).fill(null);
+        mostrarFase(1);
+      } else if (faseAtual === 2) {
+        abrirTeste(Object.keys(TESTES).find(k => TESTES[k] === testeAtual));
+      }
+    }
+
+    function voltarFase() {
+      if (faseAtual === 0) return;
+      if (faseAtual === 1 && questaoAtual > 0) {
+        questaoAtual--;
+        renderQuestao();
+      } else if (faseAtual === 1 && questaoAtual === 0) {
+        mostrarFase(0);
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // GESTÃO E RENDERIZAÇÃO DAS PERGUNTAS
+    // ══════════════════════════════════════════════════════
+    function renderQuestao() {
+      const total = testeAtual.questoes.length;
+      const pct = ((questaoAtual) / total * 100).toFixed(0);
+      
+      const progressBar = document.getElementById('progressbar');
+      const progressFill = document.getElementById('progress-fill');
+      
+      progressFill.style.width = pct + '%';
+      progressBar.setAttribute('aria-valuenow', pct);
+      
+      document.getElementById('progress-label').textContent = `Questão ${questaoAtual + 1} de ${total}`;
+
+      const container = document.getElementById('questao-container');
+      const opcoes = testeAtual.opcoes;
+      const q = testeAtual.questoes[questaoAtual];
+      const selecionado = respostas[questaoAtual];
+
+      container.innerHTML = `
+        <div class="questao-num">Questão ${questaoAtual + 1}</div>
+        <div class="questao-texto">${q}</div>
+        <div class="opcoes">
+          ${opcoes.map((op, i) => `
+            <button class="opcao-btn ${selecionado === i ? 'selected' : ''}"
+              onclick="selecionarOpcao(${i})"
+              role="radio"
+              aria-checked="${selecionado === i ? 'true' : 'false'}">
+              <span class="opcao-bullet">${String.fromCharCode(65 + i)}</span>
+              ${op.label}
+            </button>
+          `).join('')}
+        </div>
+      `;
+
+      const btnNext = document.getElementById('btn-next');
+      const isUltima = questaoAtual === total - 1;
+      btnNext.textContent = isUltima ? 'Ver resultado →' : 'Avançar →';
+      btnNext.disabled = selecionado === null;
+    }
+
+    function selecionarOpcao(idx) {
+      respostas[questaoAtual] = idx;
+      const total = testeAtual.questoes.length;
+
+      renderQuestao();
+
+      // Transição automática cronometrada para a questão seguinte
+      setTimeout(() => {
+        if (questaoAtual < total - 1) {
+          questaoAtual++;
+          renderQuestao();
+        } else {
+          finalizarTeste();
+        }
+      }, 350);
+    }
+
+    // ══════════════════════════════════════════════════════
+    // INTERPRETAÇÃO E CÁLCULO DE RESULTADOS
+    // ══════════════════════════════════════════════════════
+    function calcularScore() {
+      let score = 0;
+      respostas.forEach((respIdx, qIdx) => {
+        let valor = testeAtual.opcoes[respIdx].valor;
+        if (testeAtual.invertidos && testeAtual.invertidos.includes(qIdx)) {
+          const maxVal = testeAtual.opcoes[testeAtual.opcoes.length - 1].valor;
+          valor = maxVal - valor;
+        }
+        score += valor;
+      });
+      return score;
+    }
+
+    function finalizarTeste() {
+      const score = calcularScore();
+      const result = testeAtual.interpretar(score);
+      const maxScore = testeAtual.opcoes[testeAtual.opcoes.length - 1].valor * testeAtual.questoes.length;
+
+      document.getElementById('resultado-box').innerHTML = `
+        <div class="resultado-icon">${result.icone}</div>
+        <div class="resultado-nivel">${result.nivel}</div>
+        <div class="resultado-score">Pontuação: ${score} / ${maxScore} pontos</div>
+        <div class="resultado-texto">${result.texto}</div>
+        <div class="cta-profissional">
+          <h4>Próximo passo: fale com o psicólogo</h4>
+          <p>Este resultado é uma triagem inicial. O Psicólogo Fanuel Glanzmann analisará suas respostas em detalhes e entrará em contato para orientações personalizadas.</p>
+          <a href="https://wa.me/5524988378145?text=Olá, Fanuel! Realizei o teste *${testeAtual.titulo}* e gostaria de conversar sobre meu resultado." target="_blank" class="btn-whatsapp-resultado">
+            💬 Entrar em contato agora
+          </a>
+        </div>
+        <div class="email-status" id="email-status">📤 Enviando seu resultado para análise profissional...</div>
+      `;
+
+      mostrarFase(2);
+      document.getElementById('btn-next').textContent = '🔄 Refazer teste';
+      enviarEmail(score, result, maxScore);
+    }
+
+    // ══════════════════════════════════════════════════════
+    // SUBMISSÃO SEGURA VIA EMAILJS
+    // ══════════════════════════════════════════════════════
+    function enviarEmail(score, result, maxScore) {
+      const dataHora = new Date().toLocaleString('pt-BR');
+      const respostasTexto = testeAtual.questoes.map((q, i) => {
+        const opcaoIdx = respostas[i];
+        return `${i+1}. ${q}\n   → ${testeAtual.opcoes[opcaoIdx].label} (${testeAtual.opcoes[opcaoIdx].valor} pts)`;
+      }).join('\n\n');
+
+      const params = {
+        to_email: 'psifanuel@gmail.com',
+        psicologo: 'Fanuel Glanzmann',
+        avaliado_nome: dadosAvaliado.nome,
+        avaliado_idade: dadosAvaliado.idade,
+        avaliado_telefone: dadosAvaliado.telefone || 'Não informado',
+        avaliado_email: dadosAvaliado.email || 'Não informado',
+        avaliado_motivo: dadosAvaliado.motivo || 'Não informado',
+        teste_nome: testeAtual.titulo,
+        teste_categoria: testeAtual.categoria,
+        score: score,
+        score_max: maxScore,
+        nivel: result.nivel,
+        data_hora: dataHora,
+        respostas: respostasTexto
+      };
+
+      // Salvaguarda caso a chave pública padrão não tenha sido alterada
+      if (EMAILJS_CONFIG.publicKey === 'SUA_PUBLIC_KEY') {
+        console.warn('Configuração inicial do EmailJS pendente. Chave pública ausente.');
+        document.getElementById('email-status').textContent = '⚠️ Configure o EmailJS para envio automático. Por enquanto, entre em contato via WhatsApp.';
+        return;
+      }
+
+      emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, params)
+        .then(() => {
+          document.getElementById('email-status').textContent = '✅ Resultado enviado com sucesso para análise profissional.';
+        })
+        .catch((err) => {
+          console.error('Erro de submissão EmailJS:', err);
+          document.getElementById('email-status').textContent = '❌ Erro no envio automático das respostas. Por favor, faça contato via WhatsApp.';
+        });
+    }
+
+    // ══════════════════════════════════════════════════════
+    // COMPONENTES AUXILIARES E INTERAÇÕES
+    // ══════════════════════════════════════════════════════
+    function mostrarToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // Fecha o modal ao clicar fora da área principal de conteúdo
+    document.getElementById('modalOverlay').addEventListener('click', function(e) {
+      if (e.target === this) fecharModal();
+    });
+  </script>
+</body>
+</html>
